@@ -242,7 +242,7 @@ Refer to the example training scripts for full workflows:
 
 - [`train_2d.py`](./examples/train_2d.py) for 2D model training
 - [`train_3d.py`](./examples/train_3d.py) for 3D model training
-- [`train_3d.py`](./examples/train_multimodal.py) for multimodal model training
+- [`train_multimodal.py`](./examples/train_multimodal.py) for multimodal model training
 
 
 ## Example: 2D, 3D, and Multimodal Training
