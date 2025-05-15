@@ -18,6 +18,42 @@ We strongly recommend using the [`build_dataset.py`](./examples/build_dataset.py
 - **Support for Multiple Imaging Modalities and Devices**: Handles images from various devices, models, imaging techniques (OCT, IR, CFP, OCTA, etc.), and anatomical regions. Users can specify which device or imaging type to load, making it easy to extract specific datasets via the API.  
 
 
+### 🔧 Install Environment
+
+1. **Create environment with conda:**
+
+    ```sh
+    conda create -n aireadi python=3.10 -y
+    conda activate aireadi
+    ```
+
+2. **Install dependencies:**
+
+    ```sh
+    git clone https://github.com/uw-biomedical-ml/aireadi_loader.git 
+    cd aireadi_loader
+    ```
+
+3. **Install PyTorch and CUDA:**
+
+    - To install PyTorch via conda:
+
+        ```sh
+        conda install pytorch==2.1.0 torchvision==0.16.0 torchaudio==2.1.0 pytorch-cuda=11.8 -c pytorch -c nvidia
+        ```
+
+    - To install PyTorch via pip:
+
+        ```sh
+        pip install torch==2.1.0 torchvision==0.16.0 torchaudio==2.1.0 --index-url https://download.pytorch.org/whl/cu118
+        ```
+
+4. **Install additional dependencies:**
+
+    ```sh
+    pip install -r requirement_no_torch.txt
+    ```
+
 ---
 
 ## Dataset Classes
