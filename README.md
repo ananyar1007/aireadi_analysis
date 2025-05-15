@@ -238,13 +238,6 @@ for batch in dataloader:
     ...
 ```
 
-Refer to the example training scripts for full workflows:
-
-- [`train_2d.py`](./examples/train_2d.py) for 2D model training
-- [`train_3d.py`](./examples/train_3d.py) for 3D model training
-- [`train_multimodal.py`](./examples/train_multimodal.py) for multimodal model training
-
-
 ## Example: 2D, 3D, and Multimodal Training
 
 This example demonstrates how to utilize the AIREADI dataloader for various input configurations. While the core focus of this release is the dataloader, these scripts serve as practical starting points for model training:
@@ -258,9 +251,13 @@ Each script shows how to:
 - Initialize the dataset and dataloader with selected modalitie(s)
 - Iterate through singlemodal/multimodal batches
 
-See [`examples/train_multimodal.py`](examples/train_multimodal.py) for a full working example.
+Refer to the example training scripts for full workflows:
 
-🔬 **For users aiming to achieve stronger performance**, we recommend exploring the following pretrained foundation models we collaborated on:
+- [`train_2d.py`](./examples/train_2d.py) for 2D model training
+- [`train_3d.py`](./examples/train_3d.py) for 3D model training
+- [`train_multimodal.py`](./examples/train_multimodal.py) for multimodal model training
+
+
 > **For users aiming to achieve stronger performance**, we recommend exploring the following pretrained foundation models we collaborated on:
 >
 > - [**RETFound (MAE-based)**](https://github.com/rmaphoh/RETFound_MAE): A self-supervised pretrained model on a large retinal dataset using masked autoencoding.
