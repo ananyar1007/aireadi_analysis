@@ -41,7 +41,7 @@ class GetLabel(MapTransform):
         super().__init__(**kwargs)
 
     def __call__(self, data_dict):
-        if self.concept_id >= 0:
+        if self.concept_id > 0:
             data_dict["label"] = float(data_dict["source_values"][0])
         elif self.concept_id < 0:
             for imd in [s + "_metadata" for s in ["oct", "octa", "cfp", "ir", "faf"]]:

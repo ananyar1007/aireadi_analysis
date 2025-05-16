@@ -224,7 +224,7 @@ def filter_clinical_table(table, concept_id, ignore_values):
     Returns:
         pd.DataFrame: The filtered table.
     """
-    if concept_id == -1:
+    if concept_id <= 0:
         return table
     # check if concept_id is likely a string or contains non-numeric characters
     try:
@@ -456,7 +456,7 @@ def get_patient(dataset_dir: str, used_aireadi_patient_dict, data_type: str, con
         data_list = patient_data[data_type]
         patient_metadata = patient_data['metadata']
         label = patient_metadata['label']
-        label = 1 if label > 1 else 0
+        #label = 1 if label > 1 else 0
         class_name = patient_metadata['study_group']
 
         for data_dict in data_list:

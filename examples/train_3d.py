@@ -412,7 +412,10 @@ def train(model, train_loader, val_loader, optimizer, loss_fn, device, epochs, s
         print(f"Epoch {epoch+1}/{epochs}")
         print(f"Train Loss: {train_loss:.4f}, Train Acc: {train_acc:.4f}")
         for key, value in val_metrics.items():
-            print(f"{key}: {value:.4f}")
+            if value is not None:
+                print(f"{key}: {value:.4f}")
+            else:
+                print(f"{key}: N/A") # multiclass doesn't calculate specificity
 
         if val_metrics['Loss'] < best_val_loss:
             best_val_loss = val_metrics['Loss']
@@ -461,7 +464,10 @@ def train_reg(
         print(f"\nEpoch {epoch+1}/{epochs}")
         print(f"Train Loss: {train_loss:.4f}, Train MAE: {train_mae:.4f}, Train R2: {train_r2:.4f}")
         for key, value in val_metrics.items():
-            print(f"{key}: {value:.4f}")
+            if value is not None:
+                print(f"{key}: {value:.4f}")
+            else:
+                print(f"{key}: N/A") # multiclass doesn't calculate specificity
 
         if val_metrics['Loss'] < best_val_loss:
             best_val_loss = val_metrics['Loss']
