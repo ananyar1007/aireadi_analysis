@@ -49,7 +49,7 @@ def build_dataset(is_train, args):
                 concept_id=args.concept_id,  # 374028 (AMD) 437541 (glaucoma)
                 num_workers=args.num_workers,
                 cache_rate=args.cache_rate,
-                transform=transform,
+                transform=args.transform,
                 octa_enface_imaging=args.octa_enface_imaging,
             )
         else:
@@ -63,7 +63,7 @@ def build_dataset(is_train, args):
                 concept_id=args.concept_id,  # 374028 (AMD) 437541 (glaucoma)
                 num_workers=args.num_workers,
                 cache_rate=args.cache_rate,
-                transform=transform,
+                transform=args.transform,
                 octa_enface_imaging=args.octa_enface_imaging,
             )
     else:
@@ -76,7 +76,7 @@ def build_dataset(is_train, args):
             imaging_device=args.manufacturers_model_name,
             concept_id=args.concept_id,
             num_workers=args.num_workers,
-            transform=transform,
+            transform=args.transform,
             octa_enface_imaging=args.octa_enface_imaging,
         )
 
@@ -100,8 +100,8 @@ def create_2d_transforms(imaging, input_size):
                 Resized(
                     keys=["frames"],
                     spatial_size=(input_size, input_size),
-                    mode="bicubic",
-                ),  # Resize with bicubic interpolation
+                    mode="bilinear",
+                ),  # Resize with bilinear interpolation
                 # RandFlipd(keys=["frames"], spatial_axis=1, prob=0.5),  # Random horizontal flip
                 ScaleIntensityd(keys=["frames"]),
                 ToTensord(
@@ -123,8 +123,8 @@ def create_2d_transforms(imaging, input_size):
                 Resized(
                     keys=["frames"],
                     spatial_size=(input_size, input_size),
-                    mode="bicubic",
-                ),  # Resize with bicubic interpolation
+                    mode="bilinear",
+                ),  # Resize with bilinear interpolation
                 # RandFlipd(keys=["frames"], spatial_axis=1, prob=0.5),  # 0:vertical, 1:horizontal (ignore C dimension [C, H, W])
                 ScaleIntensityd(keys=["frames"]),
                 ToTensord(
@@ -144,10 +144,9 @@ def create_2d_transforms(imaging, input_size):
     # eval transform
     val_transform = Compose(
         [
-            # EnsureChannelFirstd(keys=["image"]),
             Resized(
-                keys=["frames"], spatial_size=(input_size, input_size), mode="bicubic"
-            ),  # Resize with bicubic interpolation
+                keys=["frames"], spatial_size=(input_size, input_size), mode="bilinear",
+            ),
             ScaleIntensityd(keys=["frames"]),
             ToTensord(
                 keys=["frames", "label"], track_meta=False
