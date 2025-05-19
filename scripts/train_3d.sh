@@ -10,7 +10,7 @@ BSZ=16
 INPUTSIZE=224
 EPOCHS=5
 CONCEPT_ID=0
-CACHE_RATE=0.01
+CACHE_RATE=0.00
 PROCESS_TYPE=volume
 DEVICE=Spectralis
 LOCATION=Macula
@@ -19,7 +19,7 @@ IMAGING=oct
 OUTPUT_DIR=./outputs/finetune_aireadi_3d_${CONCEPT_ID}_${PROCESS_TYPE}_${DEVICE}_${LOCATION}_${IMAGING}/
 YOUR_DATASET_PATH=/data/datasets/AIREADI/YEAR2/
 
-CUDA_DEVICE_ORDER=PCI_BUS_ID CUDA_VISIBLE_DEVICES="0,1" python -m examples.train_3d --nb_classes 4  \
+CUDA_DEVICE_ORDER=PCI_BUS_ID CUDA_VISIBLE_DEVICES="1,3" python -m examples.train_3d --nb_classes 4  \
     --data_path  $YOUR_DATASET_PATH \
     --imaging $IMAGING \
     --manufacturers_model_name $DEVICE \

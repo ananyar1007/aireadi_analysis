@@ -72,7 +72,7 @@ def get_process_tree_memory_usage(pid):
 class EfficientNetB0Classifier(nn.Module):
     def __init__(self, num_classes):
         super().__init__()
-        self.model = models.efficientnet_b0(weights="IMAGENET1K_V1")
+        self.model = models.efficientnet_b0()
         self.model.features[-1][0].stride = (1, 1)  # Adjust last layer stride
         self.gap = nn.AdaptiveAvgPool2d(1)  # Global Average Pooling
         self.fc = nn.Linear(

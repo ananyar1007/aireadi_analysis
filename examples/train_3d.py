@@ -492,8 +492,8 @@ def main(args):
     device = torch.device(args.device)
 
     # Load the datasets
-    dataset_train = build_dataset(is_train='train', args=args)
-    dataset_val = build_dataset(is_train='val', args=args)
+    dataset_train = build_dataset(is_train=True, args=args)
+    dataset_val = build_dataset(is_train=False, args=args)
 
     # Create DataLoaders
     data_loader_train = DataLoader(
