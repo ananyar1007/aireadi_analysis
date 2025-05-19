@@ -48,6 +48,88 @@ We strongly recommend using the [`build_dataset.py`](./examples/build_dataset.py
     pip install -r requirement_no_torch.txt
     ```
 
+## Usage
+
+### Step 1: Choose a Training Target
+
+Decide which clinical variable (training target) to predict. Each target is encoded using a `concept_id`.  
+You can find the corresponding `concept_id` for your variable of interest in the [AIREADI Data Domain Table](https://docs.aireadi.org/v2-dataDomainTable).  
+
+For example, to predict HbA1c, search for `"Hba1c"` in the table — the `TARGET_CONCEPT_ID` will be `3004410`.
+
+---
+
+### Step 2: Select Imaging Conditions
+
+Choose the imaging condition(s) you want to train on, such as:
+
+- Device model
+- Imaging modality
+- Anatomical region
+
+Valid combinations can be found in the [AIREADI Dataloader Access Table](https://github.com/uw-biomedical-ml/AIREADI_dataloader/blob/810d8daca0ef3bfde2bc297e289eb3615284ca51/dataloader_access_table.csv).
+
+---
+
+### Step 3: Build the Dataset
+
+Use the `build_dataset()` function defined in `build_dataset.py` to construct your dataset.  
+You will need to set a few required parameters — see the [Key Parameters](#key-parameters) section for details.
+
+Example:
+
+```python
+from build_dataset import build_dataset
+from monai.data import DataLoader
+
+train_dataset = build_dataset(is_train=True, args=args)
+train_loader = DataLoader(train_dataset, batch_size=8, shuffle=True, num_workers=4)
+
+test_dataset = build_dataset(is_train=False, args=args)
+test_loader = DataLoader(test_dataset, batch_size=8, shuffle=False, num_workers=4)
+```
+
+**Note:** `shuffle=True` has no effect when using `PatientFastAccessDataset`, which inherits from PyTorch's `IterableDataset`.
+
+
+### Step 4: Train the Model
+
+During training, data samples are accessed using:
+
+```python
+for batch in dataloader:
+    images = batch["frames"].to(device)
+    labels = batch["label"].to(device).long() // for classification
+    ...
+```
+
+## Example: 2D, 3D, and Multimodal Training
+
+This example demonstrates how to utilize the AIREADI dataloader for various input configurations. While the core focus of this release is the dataloader, these scripts serve as practical starting points for model training:
+
+- 2D Model Training: For slice-based inputs such as OCT/OCTA center slices, OCTA slabs, and fundus images (CFP/IR).
+- 3D Model Training: For volume-based models that take full OCT or OCTA scans as input.
+- Multimodal 2D Training: Combines multiple 2D image types (e.g., CFP + OCTA slab) for multimodal fusion.
+
+Each script shows how to:
+
+- Initialize the dataset and dataloader with selected modalitie(s)
+- Iterate through singlemodal/multimodal batches
+
+Refer to the example training scripts for full workflows:
+
+- [`train_2d.py`](./examples/train_2d.py) for 2D model training
+- [`train_3d.py`](./examples/train_3d.py) for 3D model training
+- [`train_multimodal.py`](./examples/train_multimodal.py) for multimodal model training
+
+
+> **For users aiming to achieve stronger performance**, we recommend exploring the following pretrained foundation models we collaborated on:
+>
+> - [**RETFound (MAE-based)**](https://github.com/rmaphoh/RETFound_MAE): A self-supervised pretrained model on a large retinal dataset using masked autoencoding.
+> - [**OCTCubeM**](https://github.com/ZucksLiu/OCTCubeM): A 3D foundation model designed for generalizable OCT analysis across diseases, datasets, and imaging devices.
+>
+> These models can be easily adapted to the AIREADI dataset using the provided dataloader. 
+
 ---
 
 ## Dataset Classes
@@ -177,87 +259,7 @@ Additional keyword arguments to configure the dataset.
 
 ---
 
-## Usage
 
-### Step 1: Choose a Training Target
-
-Decide which clinical variable (training target) to predict. Each target is encoded using a `concept_id`.  
-You can find the corresponding `concept_id` for your variable of interest in the [AIREADI Data Domain Table](https://docs.aireadi.org/v2-dataDomainTable).  
-
-For example, to predict HbA1c, search for `"Hba1c"` in the table — the `TARGET_CONCEPT_ID` will be `3004410`.
-
----
-
-### Step 2: Select Imaging Conditions
-
-Choose the imaging condition(s) you want to train on, such as:
-
-- Device model
-- Imaging modality
-- Anatomical region
-
-Valid combinations can be found in the [AIREADI Dataloader Access Table](https://github.com/uw-biomedical-ml/AIREADI_dataloader/blob/810d8daca0ef3bfde2bc297e289eb3615284ca51/dataloader_access_table.csv).
-
----
-
-### Step 3: Build the Dataset
-
-Use the `build_dataset()` function defined in `build_dataset.py` to construct your dataset.  
-You will need to set a few required parameters — see the [Key Parameters](#key-parameters) section for details.
-
-Example:
-
-```python
-from build_dataset import build_dataset
-from monai.data import DataLoader
-
-train_dataset = build_dataset(is_train=True, args=args)
-train_loader = DataLoader(train_dataset, batch_size=8, shuffle=True, num_workers=4)
-
-test_dataset = build_dataset(is_train=False, args=args)
-test_loader = DataLoader(test_dataset, batch_size=8, shuffle=False, num_workers=4)
-```
-
-**Note:** `shuffle=True` has no effect when using `PatientFastAccessDataset`, which inherits from PyTorch's `IterableDataset`.
-
-
-### Step 4: Train the Model
-
-During training, data samples are accessed using:
-
-```python
-for batch in dataloader:
-    images = batch["frames"].to(device)
-    labels = batch["label"].to(device).long() // for classification
-    ...
-```
-
-## Example: 2D, 3D, and Multimodal Training
-
-This example demonstrates how to utilize the AIREADI dataloader for various input configurations. While the core focus of this release is the dataloader, these scripts serve as practical starting points for model training:
-
-- 2D Model Training: For slice-based inputs such as OCT/OCTA center slices, OCTA slabs, and fundus images (CFP/IR).
-- 3D Model Training: For volume-based models that take full OCT or OCTA scans as input.
-- Multimodal 2D Training: Combines multiple 2D image types (e.g., CFP + OCTA slab) for multimodal fusion.
-
-Each script shows how to:
-
-- Initialize the dataset and dataloader with selected modalitie(s)
-- Iterate through singlemodal/multimodal batches
-
-Refer to the example training scripts for full workflows:
-
-- [`train_2d.py`](./examples/train_2d.py) for 2D model training
-- [`train_3d.py`](./examples/train_3d.py) for 3D model training
-- [`train_multimodal.py`](./examples/train_multimodal.py) for multimodal model training
-
-
-> **For users aiming to achieve stronger performance**, we recommend exploring the following pretrained foundation models we collaborated on:
->
-> - [**RETFound (MAE-based)**](https://github.com/rmaphoh/RETFound_MAE): A self-supervised pretrained model on a large retinal dataset using masked autoencoding.
-> - [**OCTCubeM**](https://github.com/ZucksLiu/OCTCubeM): A 3D foundation model designed for generalizable OCT analysis across diseases, datasets, and imaging devices.
->
-> These models can be easily adapted to the AIREADI dataset using the provided dataloader. 
 
 
 ## Credits
