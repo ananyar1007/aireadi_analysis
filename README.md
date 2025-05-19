@@ -36,12 +36,6 @@ We strongly recommend using the [`build_dataset.py`](./examples/build_dataset.py
 
 3. **Install PyTorch and CUDA:**
 
-    - To install PyTorch via conda:
-
-        ```sh
-        conda install pytorch==2.1.0 torchvision==0.16.0 torchaudio==2.1.0 pytorch-cuda=11.8 -c pytorch -c nvidia
-        ```
-
     - To install PyTorch via pip:
 
         ```sh
