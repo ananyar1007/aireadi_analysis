@@ -1,0 +1,325 @@
+,Manufacturer,Model,Imaging,octa_enface_imaging,Anatomic Region,caching,mode,Valid Combination,success,error
+107,iCare,Eidon,Infrared Reflectance,,Macula,0.0,slice,True,True,
+269,iCare,Eidon,Infrared Reflectance,,Macula,0.01,slice,True,True,
+106,iCare,Eidon,Color Photography,,Temporal_Periphery,0.0,slice,True,True,
+268,iCare,Eidon,Color Photography,,Temporal_Periphery,0.01,slice,True,True,
+105,iCare,Eidon,Color Photography,,Nasal,0.0,slice,True,True,
+267,iCare,Eidon,Color Photography,,Nasal,0.01,slice,True,True,
+103,iCare,Eidon,Color Photography,,Mosaic,0.0,slice,True,True,
+265,iCare,Eidon,Color Photography,,Mosaic,0.01,slice,True,True,
+104,iCare,Eidon,Color Photography,,Macula,0.0,slice,True,True,
+266,iCare,Eidon,Color Photography,,Macula,0.01,slice,True,True,
+27,Zeiss,Cirrus,OCTA,,Optic_Disc_6x6,0.0,volume,True,True,
+81,Zeiss,Cirrus,OCTA,,Optic_Disc_6x6,0.0,slice,True,True,
+83,Zeiss,Cirrus,OCTA,superficial,Optic_Disc_6x6,0.0,slice,True,True,
+85,Zeiss,Cirrus,OCTA,deep,Optic_Disc_6x6,0.0,slice,True,True,
+87,Zeiss,Cirrus,OCTA,outer_retina,Optic_Disc_6x6,0.0,slice,True,True,
+89,Zeiss,Cirrus,OCTA,choriocapillaris,Optic_Disc_6x6,0.0,slice,True,True,
+135,Zeiss,Cirrus,OCTA,,Optic_Disc_6x6,0.0,center_slice,True,True,
+189,Zeiss,Cirrus,OCTA,,Optic_Disc_6x6,0.01,volume,True,True,
+243,Zeiss,Cirrus,OCTA,,Optic_Disc_6x6,0.01,slice,True,True,
+245,Zeiss,Cirrus,OCTA,superficial,Optic_Disc_6x6,0.01,slice,True,True,
+247,Zeiss,Cirrus,OCTA,deep,Optic_Disc_6x6,0.01,slice,True,True,
+249,Zeiss,Cirrus,OCTA,outer_retina,Optic_Disc_6x6,0.01,slice,True,True,
+251,Zeiss,Cirrus,OCTA,choriocapillaris,Optic_Disc_6x6,0.01,slice,True,True,
+297,Zeiss,Cirrus,OCTA,,Optic_Disc_6x6,0.01,center_slice,True,True,
+28,Zeiss,Cirrus,OCTA,,Macula_6x6,0.0,volume,True,True,
+82,Zeiss,Cirrus,OCTA,,Macula_6x6,0.0,slice,True,True,
+84,Zeiss,Cirrus,OCTA,superficial,Macula_6x6,0.0,slice,True,True,
+86,Zeiss,Cirrus,OCTA,deep,Macula_6x6,0.0,slice,True,True,
+88,Zeiss,Cirrus,OCTA,outer_retina,Macula_6x6,0.0,slice,True,True,
+90,Zeiss,Cirrus,OCTA,choriocapillaris,Macula_6x6,0.0,slice,True,True,
+136,Zeiss,Cirrus,OCTA,,Macula_6x6,0.0,center_slice,True,True,
+190,Zeiss,Cirrus,OCTA,,Macula_6x6,0.01,volume,True,True,
+244,Zeiss,Cirrus,OCTA,,Macula_6x6,0.01,slice,True,True,
+246,Zeiss,Cirrus,OCTA,superficial,Macula_6x6,0.01,slice,True,True,
+248,Zeiss,Cirrus,OCTA,deep,Macula_6x6,0.01,slice,True,True,
+250,Zeiss,Cirrus,OCTA,outer_retina,Macula_6x6,0.01,slice,True,True,
+252,Zeiss,Cirrus,OCTA,choriocapillaris,Macula_6x6,0.01,slice,True,True,
+298,Zeiss,Cirrus,OCTA,,Macula_6x6,0.01,center_slice,True,True,
+8,Zeiss,Cirrus,OCT,,Optic_Disc_6x6,0.0,volume,True,True,
+62,Zeiss,Cirrus,OCT,,Optic_Disc_6x6,0.0,slice,True,True,
+116,Zeiss,Cirrus,OCT,,Optic_Disc_6x6,0.0,center_slice,True,True,
+170,Zeiss,Cirrus,OCT,,Optic_Disc_6x6,0.01,volume,True,True,
+224,Zeiss,Cirrus,OCT,,Optic_Disc_6x6,0.01,slice,True,True,
+278,Zeiss,Cirrus,OCT,,Optic_Disc_6x6,0.01,center_slice,True,True,
+9,Zeiss,Cirrus,OCT,,Optic_Disc,0.0,volume,True,True,
+63,Zeiss,Cirrus,OCT,,Optic_Disc,0.0,slice,True,True,
+117,Zeiss,Cirrus,OCT,,Optic_Disc,0.0,center_slice,True,True,
+171,Zeiss,Cirrus,OCT,,Optic_Disc,0.01,volume,True,True,
+225,Zeiss,Cirrus,OCT,,Optic_Disc,0.01,slice,True,True,
+279,Zeiss,Cirrus,OCT,,Optic_Disc,0.01,center_slice,True,True,
+11,Zeiss,Cirrus,OCT,,Macula_6x6,0.0,volume,True,True,
+65,Zeiss,Cirrus,OCT,,Macula_6x6,0.0,slice,True,True,
+119,Zeiss,Cirrus,OCT,,Macula_6x6,0.0,center_slice,True,True,
+173,Zeiss,Cirrus,OCT,,Macula_6x6,0.01,volume,True,True,
+227,Zeiss,Cirrus,OCT,,Macula_6x6,0.01,slice,True,True,
+281,Zeiss,Cirrus,OCT,,Macula_6x6,0.01,center_slice,True,True,
+10,Zeiss,Cirrus,OCT,,Macula,0.0,volume,True,True,
+64,Zeiss,Cirrus,OCT,,Macula,0.0,slice,True,True,
+118,Zeiss,Cirrus,OCT,,Macula,0.0,center_slice,True,True,
+172,Zeiss,Cirrus,OCT,,Macula,0.01,volume,True,True,
+226,Zeiss,Cirrus,OCT,,Macula,0.01,slice,True,True,
+280,Zeiss,Cirrus,OCT,,Macula,0.01,center_slice,True,True,
+100,Zeiss,Cirrus,Infrared Reflectance,,Optic_Disc,0.0,slice,True,True,
+262,Zeiss,Cirrus,Infrared Reflectance,,Optic_Disc,0.01,slice,True,True,
+101,Zeiss,Cirrus,Infrared Reflectance,,Macula,0.0,slice,True,True,
+263,Zeiss,Cirrus,Infrared Reflectance,,Macula,0.01,slice,True,True,
+18,Topcon,Triton,OCTA,,Macula_6x6,0.0,volume,True,True,
+72,Topcon,Triton,OCTA,,Macula_6x6,0.0,slice,True,True,
+74,Topcon,Triton,OCTA,superficial,Macula_6x6,0.0,slice,True,True,
+76,Topcon,Triton,OCTA,deep,Macula_6x6,0.0,slice,True,True,
+78,Topcon,Triton,OCTA,outer_retina,Macula_6x6,0.0,slice,True,True,
+80,Topcon,Triton,OCTA,choriocapillaris,Macula_6x6,0.0,slice,True,True,
+126,Topcon,Triton,OCTA,,Macula_6x6,0.0,center_slice,True,True,
+180,Topcon,Triton,OCTA,,Macula_6x6,0.01,volume,True,True,
+234,Topcon,Triton,OCTA,,Macula_6x6,0.01,slice,True,True,
+236,Topcon,Triton,OCTA,superficial,Macula_6x6,0.01,slice,True,True,
+238,Topcon,Triton,OCTA,deep,Macula_6x6,0.01,slice,True,True,
+240,Topcon,Triton,OCTA,outer_retina,Macula_6x6,0.01,slice,True,True,
+242,Topcon,Triton,OCTA,choriocapillaris,Macula_6x6,0.01,slice,True,True,
+288,Topcon,Triton,OCTA,,Macula_6x6,0.01,center_slice,True,True,
+17,Topcon,Triton,OCTA,,Macula_12x12,0.0,volume,True,True,
+71,Topcon,Triton,OCTA,,Macula_12x12,0.0,slice,True,True,
+73,Topcon,Triton,OCTA,superficial,Macula_12x12,0.0,slice,True,True,
+75,Topcon,Triton,OCTA,deep,Macula_12x12,0.0,slice,True,True,
+77,Topcon,Triton,OCTA,outer_retina,Macula_12x12,0.0,slice,True,True,
+79,Topcon,Triton,OCTA,choriocapillaris,Macula_12x12,0.0,slice,True,True,
+125,Topcon,Triton,OCTA,,Macula_12x12,0.0,center_slice,True,True,
+179,Topcon,Triton,OCTA,,Macula_12x12,0.01,volume,True,True,
+233,Topcon,Triton,OCTA,,Macula_12x12,0.01,slice,True,True,
+235,Topcon,Triton,OCTA,superficial,Macula_12x12,0.01,slice,True,True,
+237,Topcon,Triton,OCTA,deep,Macula_12x12,0.01,slice,True,True,
+239,Topcon,Triton,OCTA,outer_retina,Macula_12x12,0.01,slice,True,True,
+241,Topcon,Triton,OCTA,choriocapillaris,Macula_12x12,0.01,slice,True,True,
+287,Topcon,Triton,OCTA,,Macula_12x12,0.01,center_slice,True,True,
+7,Topcon,Triton,OCT,,Optic_Disc,0.0,volume,True,True,
+61,Topcon,Triton,OCT,,Optic_Disc,0.0,slice,True,True,
+115,Topcon,Triton,OCT,,Optic_Disc,0.0,center_slice,True,True,
+169,Topcon,Triton,OCT,,Optic_Disc,0.01,volume,True,True,
+223,Topcon,Triton,OCT,,Optic_Disc,0.01,slice,True,True,
+277,Topcon,Triton,OCT,,Optic_Disc,0.01,center_slice,True,True,
+6,Topcon,Triton,OCT,,Macula_6x6,0.0,volume,True,True,
+60,Topcon,Triton,OCT,,Macula_6x6,0.0,slice,True,True,
+114,Topcon,Triton,OCT,,Macula_6x6,0.0,center_slice,True,True,
+168,Topcon,Triton,OCT,,Macula_6x6,0.01,volume,True,True,
+222,Topcon,Triton,OCT,,Macula_6x6,0.01,slice,True,True,
+276,Topcon,Triton,OCT,,Macula_6x6,0.01,center_slice,True,True,
+5,Topcon,Triton,OCT,,Macula_12x12,0.0,volume,True,True,
+59,Topcon,Triton,OCT,,Macula_12x12,0.0,slice,True,True,
+113,Topcon,Triton,OCT,,Macula_12x12,0.0,center_slice,True,True,
+167,Topcon,Triton,OCT,,Macula_12x12,0.01,volume,True,True,
+221,Topcon,Triton,OCT,,Macula_12x12,0.01,slice,True,True,
+275,Topcon,Triton,OCT,,Macula_12x12,0.01,center_slice,True,True,
+99,Topcon,Triton,Color Photography,,Optic_Disc,0.0,slice,True,True,
+261,Topcon,Triton,Color Photography,,Optic_Disc,0.01,slice,True,True,
+98,Topcon,Triton,Color Photography,,Macula_6x6,0.0,slice,True,True,
+260,Topcon,Triton,Color Photography,,Macula_6x6,0.01,slice,True,True,
+97,Topcon,Triton,Color Photography,,Macula_12x12,0.0,slice,True,True,
+259,Topcon,Triton,Color Photography,,Macula_12x12,0.01,slice,True,True,
+12,Topcon,Maestro2,OCTA,,Macula_6x6,0.0,volume,True,True,
+66,Topcon,Maestro2,OCTA,,Macula_6x6,0.0,slice,True,True,
+67,Topcon,Maestro2,OCTA,superficial,Macula_6x6,0.0,slice,True,True,
+68,Topcon,Maestro2,OCTA,deep,Macula_6x6,0.0,slice,True,True,
+69,Topcon,Maestro2,OCTA,outer_retina,Macula_6x6,0.0,slice,True,True,
+70,Topcon,Maestro2,OCTA,choriocapillaris,Macula_6x6,0.0,slice,True,True,
+120,Topcon,Maestro2,OCTA,,Macula_6x6,0.0,center_slice,True,True,
+174,Topcon,Maestro2,OCTA,,Macula_6x6,0.01,volume,True,True,
+228,Topcon,Maestro2,OCTA,,Macula_6x6,0.01,slice,True,True,
+229,Topcon,Maestro2,OCTA,superficial,Macula_6x6,0.01,slice,True,True,
+230,Topcon,Maestro2,OCTA,deep,Macula_6x6,0.01,slice,True,True,
+231,Topcon,Maestro2,OCTA,outer_retina,Macula_6x6,0.01,slice,True,True,
+232,Topcon,Maestro2,OCTA,choriocapillaris,Macula_6x6,0.01,slice,True,True,
+282,Topcon,Maestro2,OCTA,,Macula_6x6,0.01,center_slice,True,True,
+3,Topcon,Maestro2,OCT,,Wide_Field,0.0,volume,True,True,
+57,Topcon,Maestro2,OCT,,Wide_Field,0.0,slice,True,True,
+111,Topcon,Maestro2,OCT,,Wide_Field,0.0,center_slice,True,True,
+165,Topcon,Maestro2,OCT,,Wide_Field,0.01,volume,True,True,
+219,Topcon,Maestro2,OCT,,Wide_Field,0.01,slice,True,True,
+273,Topcon,Maestro2,OCT,,Wide_Field,0.01,center_slice,True,True,
+4,Topcon,Maestro2,OCT,,Macula_6x6,0.0,volume,True,True,
+58,Topcon,Maestro2,OCT,,Macula_6x6,0.0,slice,True,True,
+112,Topcon,Maestro2,OCT,,Macula_6x6,0.0,center_slice,True,True,
+166,Topcon,Maestro2,OCT,,Macula_6x6,0.01,volume,True,True,
+220,Topcon,Maestro2,OCT,,Macula_6x6,0.01,slice,True,True,
+274,Topcon,Maestro2,OCT,,Macula_6x6,0.01,center_slice,True,True,
+2,Topcon,Maestro2,OCT,,Macula,0.0,volume,True,True,
+56,Topcon,Maestro2,OCT,,Macula,0.0,slice,True,True,
+110,Topcon,Maestro2,OCT,,Macula,0.0,center_slice,True,True,
+164,Topcon,Maestro2,OCT,,Macula,0.01,volume,True,True,
+218,Topcon,Maestro2,OCT,,Macula,0.01,slice,True,True,
+272,Topcon,Maestro2,OCT,,Macula,0.01,center_slice,True,True,
+96,Topcon,Maestro2,Infrared Reflectance,,Macula_6x6,0.0,slice,True,True,
+258,Topcon,Maestro2,Infrared Reflectance,,Macula_6x6,0.01,slice,True,True,
+95,Topcon,Maestro2,Color Photography,,Wide_Field,0.0,slice,True,True,
+257,Topcon,Maestro2,Color Photography,,Wide_Field,0.01,slice,True,True,
+94,Topcon,Maestro2,Color Photography,,Macula,0.0,slice,True,True,
+256,Topcon,Maestro2,Color Photography,,Macula,0.01,slice,True,True,
+0,Heidelberg,Spectralis,OCT,,Optic_Disc,0.0,volume,True,True,
+54,Heidelberg,Spectralis,OCT,,Optic_Disc,0.0,slice,True,True,
+108,Heidelberg,Spectralis,OCT,,Optic_Disc,0.0,center_slice,True,True,
+162,Heidelberg,Spectralis,OCT,,Optic_Disc,0.01,volume,True,True,
+216,Heidelberg,Spectralis,OCT,,Optic_Disc,0.01,slice,True,True,
+270,Heidelberg,Spectralis,OCT,,Optic_Disc,0.01,center_slice,True,True,
+1,Heidelberg,Spectralis,OCT,,Macula,0.0,volume,True,True,
+55,Heidelberg,Spectralis,OCT,,Macula,0.0,slice,True,True,
+109,Heidelberg,Spectralis,OCT,,Macula,0.0,center_slice,True,True,
+163,Heidelberg,Spectralis,OCT,,Macula,0.01,volume,True,True,
+217,Heidelberg,Spectralis,OCT,,Macula,0.01,slice,True,True,
+271,Heidelberg,Spectralis,OCT,,Macula,0.01,center_slice,True,True,
+91,Heidelberg,Spectralis,Infrared Reflectance,,Optic_Disc,0.0,slice,True,True,
+253,Heidelberg,Spectralis,Infrared Reflectance,,Optic_Disc,0.01,slice,True,True,
+92,Heidelberg,Spectralis,Infrared Reflectance,,Macula,0.0,slice,True,True,
+254,Heidelberg,Spectralis,Infrared Reflectance,,Macula,0.01,slice,True,True,
+53,iCare,Eidon,Infrared Reflectance,,Macula,0.0,volume,False,False,"Invalid mode 'volume' for imaging type 'ir'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+161,iCare,Eidon,Infrared Reflectance,,Macula,0.0,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'ir'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+215,iCare,Eidon,Infrared Reflectance,,Macula,0.01,volume,False,False,"Invalid mode 'volume' for imaging type 'ir'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+323,iCare,Eidon,Infrared Reflectance,,Macula,0.01,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'ir'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+52,iCare,Eidon,Color Photography,,Temporal_Periphery,0.0,volume,False,False,"Invalid mode 'volume' for imaging type 'cfp'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+160,iCare,Eidon,Color Photography,,Temporal_Periphery,0.0,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'cfp'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+214,iCare,Eidon,Color Photography,,Temporal_Periphery,0.01,volume,False,False,"Invalid mode 'volume' for imaging type 'cfp'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+322,iCare,Eidon,Color Photography,,Temporal_Periphery,0.01,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'cfp'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+51,iCare,Eidon,Color Photography,,Nasal,0.0,volume,False,False,"Invalid mode 'volume' for imaging type 'cfp'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+159,iCare,Eidon,Color Photography,,Nasal,0.0,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'cfp'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+213,iCare,Eidon,Color Photography,,Nasal,0.01,volume,False,False,"Invalid mode 'volume' for imaging type 'cfp'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+321,iCare,Eidon,Color Photography,,Nasal,0.01,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'cfp'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+49,iCare,Eidon,Color Photography,,Mosaic,0.0,volume,False,False,"Invalid mode 'volume' for imaging type 'cfp'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+157,iCare,Eidon,Color Photography,,Mosaic,0.0,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'cfp'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+211,iCare,Eidon,Color Photography,,Mosaic,0.01,volume,False,False,"Invalid mode 'volume' for imaging type 'cfp'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+319,iCare,Eidon,Color Photography,,Mosaic,0.01,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'cfp'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+50,iCare,Eidon,Color Photography,,Macula,0.0,volume,False,False,"Invalid mode 'volume' for imaging type 'cfp'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+158,iCare,Eidon,Color Photography,,Macula,0.0,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'cfp'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+212,iCare,Eidon,Color Photography,,Macula,0.01,volume,False,False,"Invalid mode 'volume' for imaging type 'cfp'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+320,iCare,Eidon,Color Photography,,Macula,0.01,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'cfp'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+48,iCare,Eidon,Autofluorescence,,Macula,0.0,volume,False,False,"Invalid mode 'volume' for imaging type 'faf'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+102,iCare,Eidon,Autofluorescence,,Macula,0.0,slice,False,False,"Invalid mode 'slice' for imaging type 'faf'. Allowed imaging types for 'slice' are ['cfp', 'ir', 'oct', 'octa']."
+156,iCare,Eidon,Autofluorescence,,Macula,0.0,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'faf'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+210,iCare,Eidon,Autofluorescence,,Macula,0.01,volume,False,False,"Invalid mode 'volume' for imaging type 'faf'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+264,iCare,Eidon,Autofluorescence,,Macula,0.01,slice,False,False,"Invalid mode 'slice' for imaging type 'faf'. Allowed imaging types for 'slice' are ['cfp', 'ir', 'oct', 'octa']."
+318,iCare,Eidon,Autofluorescence,,Macula,0.01,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'faf'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+29,Zeiss,Cirrus,OCTA,superficial,Optic_Disc_6x6,0.0,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'superficial'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+31,Zeiss,Cirrus,OCTA,deep,Optic_Disc_6x6,0.0,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'deep'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+33,Zeiss,Cirrus,OCTA,outer_retina,Optic_Disc_6x6,0.0,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'outer_retina'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+35,Zeiss,Cirrus,OCTA,choriocapillaris,Optic_Disc_6x6,0.0,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'choriocapillaris'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+137,Zeiss,Cirrus,OCTA,superficial,Optic_Disc_6x6,0.0,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'superficial'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+139,Zeiss,Cirrus,OCTA,deep,Optic_Disc_6x6,0.0,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'deep'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+141,Zeiss,Cirrus,OCTA,outer_retina,Optic_Disc_6x6,0.0,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'outer_retina'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+143,Zeiss,Cirrus,OCTA,choriocapillaris,Optic_Disc_6x6,0.0,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'choriocapillaris'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+191,Zeiss,Cirrus,OCTA,superficial,Optic_Disc_6x6,0.01,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'superficial'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+193,Zeiss,Cirrus,OCTA,deep,Optic_Disc_6x6,0.01,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'deep'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+195,Zeiss,Cirrus,OCTA,outer_retina,Optic_Disc_6x6,0.01,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'outer_retina'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+197,Zeiss,Cirrus,OCTA,choriocapillaris,Optic_Disc_6x6,0.01,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'choriocapillaris'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+299,Zeiss,Cirrus,OCTA,superficial,Optic_Disc_6x6,0.01,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'superficial'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+301,Zeiss,Cirrus,OCTA,deep,Optic_Disc_6x6,0.01,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'deep'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+303,Zeiss,Cirrus,OCTA,outer_retina,Optic_Disc_6x6,0.01,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'outer_retina'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+305,Zeiss,Cirrus,OCTA,choriocapillaris,Optic_Disc_6x6,0.01,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'choriocapillaris'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+30,Zeiss,Cirrus,OCTA,superficial,Macula_6x6,0.0,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'superficial'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+32,Zeiss,Cirrus,OCTA,deep,Macula_6x6,0.0,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'deep'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+34,Zeiss,Cirrus,OCTA,outer_retina,Macula_6x6,0.0,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'outer_retina'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+36,Zeiss,Cirrus,OCTA,choriocapillaris,Macula_6x6,0.0,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'choriocapillaris'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+138,Zeiss,Cirrus,OCTA,superficial,Macula_6x6,0.0,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'superficial'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+140,Zeiss,Cirrus,OCTA,deep,Macula_6x6,0.0,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'deep'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+142,Zeiss,Cirrus,OCTA,outer_retina,Macula_6x6,0.0,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'outer_retina'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+144,Zeiss,Cirrus,OCTA,choriocapillaris,Macula_6x6,0.0,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'choriocapillaris'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+192,Zeiss,Cirrus,OCTA,superficial,Macula_6x6,0.01,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'superficial'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+194,Zeiss,Cirrus,OCTA,deep,Macula_6x6,0.01,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'deep'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+196,Zeiss,Cirrus,OCTA,outer_retina,Macula_6x6,0.01,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'outer_retina'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+198,Zeiss,Cirrus,OCTA,choriocapillaris,Macula_6x6,0.01,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'choriocapillaris'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+300,Zeiss,Cirrus,OCTA,superficial,Macula_6x6,0.01,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'superficial'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+302,Zeiss,Cirrus,OCTA,deep,Macula_6x6,0.01,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'deep'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+304,Zeiss,Cirrus,OCTA,outer_retina,Macula_6x6,0.01,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'outer_retina'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+306,Zeiss,Cirrus,OCTA,choriocapillaris,Macula_6x6,0.01,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'choriocapillaris'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+46,Zeiss,Cirrus,Infrared Reflectance,,Optic_Disc,0.0,volume,False,False,"Invalid mode 'volume' for imaging type 'ir'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+154,Zeiss,Cirrus,Infrared Reflectance,,Optic_Disc,0.0,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'ir'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+208,Zeiss,Cirrus,Infrared Reflectance,,Optic_Disc,0.01,volume,False,False,"Invalid mode 'volume' for imaging type 'ir'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+316,Zeiss,Cirrus,Infrared Reflectance,,Optic_Disc,0.01,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'ir'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+47,Zeiss,Cirrus,Infrared Reflectance,,Macula,0.0,volume,False,False,"Invalid mode 'volume' for imaging type 'ir'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+155,Zeiss,Cirrus,Infrared Reflectance,,Macula,0.0,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'ir'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+209,Zeiss,Cirrus,Infrared Reflectance,,Macula,0.01,volume,False,False,"Invalid mode 'volume' for imaging type 'ir'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+317,Zeiss,Cirrus,Infrared Reflectance,,Macula,0.01,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'ir'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+20,Topcon,Triton,OCTA,superficial,Macula_6x6,0.0,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'superficial'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+22,Topcon,Triton,OCTA,deep,Macula_6x6,0.0,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'deep'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+24,Topcon,Triton,OCTA,outer_retina,Macula_6x6,0.0,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'outer_retina'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+26,Topcon,Triton,OCTA,choriocapillaris,Macula_6x6,0.0,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'choriocapillaris'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+128,Topcon,Triton,OCTA,superficial,Macula_6x6,0.0,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'superficial'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+130,Topcon,Triton,OCTA,deep,Macula_6x6,0.0,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'deep'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+132,Topcon,Triton,OCTA,outer_retina,Macula_6x6,0.0,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'outer_retina'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+134,Topcon,Triton,OCTA,choriocapillaris,Macula_6x6,0.0,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'choriocapillaris'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+182,Topcon,Triton,OCTA,superficial,Macula_6x6,0.01,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'superficial'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+184,Topcon,Triton,OCTA,deep,Macula_6x6,0.01,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'deep'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+186,Topcon,Triton,OCTA,outer_retina,Macula_6x6,0.01,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'outer_retina'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+188,Topcon,Triton,OCTA,choriocapillaris,Macula_6x6,0.01,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'choriocapillaris'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+290,Topcon,Triton,OCTA,superficial,Macula_6x6,0.01,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'superficial'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+292,Topcon,Triton,OCTA,deep,Macula_6x6,0.01,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'deep'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+294,Topcon,Triton,OCTA,outer_retina,Macula_6x6,0.01,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'outer_retina'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+296,Topcon,Triton,OCTA,choriocapillaris,Macula_6x6,0.01,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'choriocapillaris'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+19,Topcon,Triton,OCTA,superficial,Macula_12x12,0.0,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'superficial'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+21,Topcon,Triton,OCTA,deep,Macula_12x12,0.0,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'deep'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+23,Topcon,Triton,OCTA,outer_retina,Macula_12x12,0.0,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'outer_retina'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+25,Topcon,Triton,OCTA,choriocapillaris,Macula_12x12,0.0,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'choriocapillaris'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+127,Topcon,Triton,OCTA,superficial,Macula_12x12,0.0,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'superficial'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+129,Topcon,Triton,OCTA,deep,Macula_12x12,0.0,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'deep'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+131,Topcon,Triton,OCTA,outer_retina,Macula_12x12,0.0,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'outer_retina'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+133,Topcon,Triton,OCTA,choriocapillaris,Macula_12x12,0.0,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'choriocapillaris'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+181,Topcon,Triton,OCTA,superficial,Macula_12x12,0.01,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'superficial'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+183,Topcon,Triton,OCTA,deep,Macula_12x12,0.01,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'deep'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+185,Topcon,Triton,OCTA,outer_retina,Macula_12x12,0.01,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'outer_retina'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+187,Topcon,Triton,OCTA,choriocapillaris,Macula_12x12,0.01,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'choriocapillaris'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+289,Topcon,Triton,OCTA,superficial,Macula_12x12,0.01,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'superficial'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+291,Topcon,Triton,OCTA,deep,Macula_12x12,0.01,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'deep'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+293,Topcon,Triton,OCTA,outer_retina,Macula_12x12,0.01,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'outer_retina'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+295,Topcon,Triton,OCTA,choriocapillaris,Macula_12x12,0.01,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'choriocapillaris'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+45,Topcon,Triton,Color Photography,,Optic_Disc,0.0,volume,False,False,"Invalid mode 'volume' for imaging type 'cfp'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+153,Topcon,Triton,Color Photography,,Optic_Disc,0.0,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'cfp'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+207,Topcon,Triton,Color Photography,,Optic_Disc,0.01,volume,False,False,"Invalid mode 'volume' for imaging type 'cfp'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+315,Topcon,Triton,Color Photography,,Optic_Disc,0.01,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'cfp'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+44,Topcon,Triton,Color Photography,,Macula_6x6,0.0,volume,False,False,"Invalid mode 'volume' for imaging type 'cfp'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+152,Topcon,Triton,Color Photography,,Macula_6x6,0.0,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'cfp'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+206,Topcon,Triton,Color Photography,,Macula_6x6,0.01,volume,False,False,"Invalid mode 'volume' for imaging type 'cfp'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+314,Topcon,Triton,Color Photography,,Macula_6x6,0.01,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'cfp'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+43,Topcon,Triton,Color Photography,,Macula_12x12,0.0,volume,False,False,"Invalid mode 'volume' for imaging type 'cfp'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+151,Topcon,Triton,Color Photography,,Macula_12x12,0.0,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'cfp'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+205,Topcon,Triton,Color Photography,,Macula_12x12,0.01,volume,False,False,"Invalid mode 'volume' for imaging type 'cfp'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+313,Topcon,Triton,Color Photography,,Macula_12x12,0.01,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'cfp'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+13,Topcon,Maestro2,OCTA,superficial,Macula_6x6,0.0,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'superficial'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+14,Topcon,Maestro2,OCTA,deep,Macula_6x6,0.0,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'deep'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+15,Topcon,Maestro2,OCTA,outer_retina,Macula_6x6,0.0,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'outer_retina'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+16,Topcon,Maestro2,OCTA,choriocapillaris,Macula_6x6,0.0,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'choriocapillaris'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+121,Topcon,Maestro2,OCTA,superficial,Macula_6x6,0.0,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'superficial'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+122,Topcon,Maestro2,OCTA,deep,Macula_6x6,0.0,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'deep'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+123,Topcon,Maestro2,OCTA,outer_retina,Macula_6x6,0.0,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'outer_retina'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+124,Topcon,Maestro2,OCTA,choriocapillaris,Macula_6x6,0.0,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'choriocapillaris'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+175,Topcon,Maestro2,OCTA,superficial,Macula_6x6,0.01,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'superficial'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+176,Topcon,Maestro2,OCTA,deep,Macula_6x6,0.01,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'deep'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+177,Topcon,Maestro2,OCTA,outer_retina,Macula_6x6,0.01,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'outer_retina'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+178,Topcon,Maestro2,OCTA,choriocapillaris,Macula_6x6,0.01,volume,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'choriocapillaris'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+283,Topcon,Maestro2,OCTA,superficial,Macula_6x6,0.01,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'superficial'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+284,Topcon,Maestro2,OCTA,deep,Macula_6x6,0.01,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'deep'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+285,Topcon,Maestro2,OCTA,outer_retina,Macula_6x6,0.01,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'outer_retina'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+286,Topcon,Maestro2,OCTA,choriocapillaris,Macula_6x6,0.01,center_slice,False,False,"Invalid configuration: Imaging type 'octa' in 'volume' or 'center_slice' mode requires 'octa_enface_imaging=None', but got 'choriocapillaris'. Enface types such as ['superficial', 'deep', 'outer_retina', 'choriocapillaris'] are only valid when using 'slice' modes."
+42,Topcon,Maestro2,Infrared Reflectance,,Macula_6x6,0.0,volume,False,False,"Invalid mode 'volume' for imaging type 'ir'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+150,Topcon,Maestro2,Infrared Reflectance,,Macula_6x6,0.0,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'ir'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+204,Topcon,Maestro2,Infrared Reflectance,,Macula_6x6,0.01,volume,False,False,"Invalid mode 'volume' for imaging type 'ir'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+312,Topcon,Maestro2,Infrared Reflectance,,Macula_6x6,0.01,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'ir'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+41,Topcon,Maestro2,Color Photography,,Wide_Field,0.0,volume,False,False,"Invalid mode 'volume' for imaging type 'cfp'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+149,Topcon,Maestro2,Color Photography,,Wide_Field,0.0,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'cfp'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+203,Topcon,Maestro2,Color Photography,,Wide_Field,0.01,volume,False,False,"Invalid mode 'volume' for imaging type 'cfp'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+311,Topcon,Maestro2,Color Photography,,Wide_Field,0.01,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'cfp'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+40,Topcon,Maestro2,Color Photography,,Macula,0.0,volume,False,False,"Invalid mode 'volume' for imaging type 'cfp'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+148,Topcon,Maestro2,Color Photography,,Macula,0.0,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'cfp'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+202,Topcon,Maestro2,Color Photography,,Macula,0.01,volume,False,False,"Invalid mode 'volume' for imaging type 'cfp'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+310,Topcon,Maestro2,Color Photography,,Macula,0.01,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'cfp'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+39,Optomed,Aurora,Color Photography,,Macula_or_Optic_Disc,0.0,volume,False,False,"Invalid mode 'volume' for imaging type 'cfp'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+93,Optomed,Aurora,Color Photography,,Macula_or_Optic_Disc,0.0,slice,False,False,"Invalid imaging device 'Aurora' for imaging type 'cfp'. Allowed imaging devices are ['Maestro2', 'Triton', 'Eidon']."
+147,Optomed,Aurora,Color Photography,,Macula_or_Optic_Disc,0.0,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'cfp'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+201,Optomed,Aurora,Color Photography,,Macula_or_Optic_Disc,0.01,volume,False,False,"Invalid mode 'volume' for imaging type 'cfp'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+255,Optomed,Aurora,Color Photography,,Macula_or_Optic_Disc,0.01,slice,False,False,"Invalid imaging device 'Aurora' for imaging type 'cfp'. Allowed imaging devices are ['Maestro2', 'Triton', 'Eidon']."
+309,Optomed,Aurora,Color Photography,,Macula_or_Optic_Disc,0.01,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'cfp'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+37,Heidelberg,Spectralis,Infrared Reflectance,,Optic_Disc,0.0,volume,False,False,"Invalid mode 'volume' for imaging type 'ir'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+145,Heidelberg,Spectralis,Infrared Reflectance,,Optic_Disc,0.0,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'ir'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+199,Heidelberg,Spectralis,Infrared Reflectance,,Optic_Disc,0.01,volume,False,False,"Invalid mode 'volume' for imaging type 'ir'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+307,Heidelberg,Spectralis,Infrared Reflectance,,Optic_Disc,0.01,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'ir'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+38,Heidelberg,Spectralis,Infrared Reflectance,,Macula,0.0,volume,False,False,"Invalid mode 'volume' for imaging type 'ir'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+146,Heidelberg,Spectralis,Infrared Reflectance,,Macula,0.0,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'ir'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
+200,Heidelberg,Spectralis,Infrared Reflectance,,Macula,0.01,volume,False,False,"Invalid mode 'volume' for imaging type 'ir'. Allowed imaging types for 'volume' are ['oct', 'octa']."
+308,Heidelberg,Spectralis,Infrared Reflectance,,Macula,0.01,center_slice,False,False,"Invalid mode 'center_slice' for imaging type 'ir'. Allowed imaging types for 'center_slice' are ['oct', 'octa']."
