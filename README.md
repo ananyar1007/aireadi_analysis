@@ -49,7 +49,7 @@ You can use **Python 3.10** or **3.12**, depending on your system and preference
 4. **Install remaining dependencies:**
 
     ```sh
-    pip install -r requirement_no_torch_python_3_10.txt
+    pip install -r requirements_no_torch_python_3_10.txt
     ```
 
 ---
@@ -74,7 +74,7 @@ You can use **Python 3.10** or **3.12**, depending on your system and preference
 3. **Install remaining dependencies:**
 
     ```sh
-    pip install -r requirement_no_torch_python_3_12.txt
+    pip install -r requirements_no_torch_python_3_12.txt
     ```
 
 ---
