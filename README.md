@@ -99,7 +99,7 @@ Choose the imaging condition(s) you want to train on, such as:
 - Imaging modality
 - Anatomical region
 
-Valid combinations can be found in the [AIREADI Dataloader Access Table](https://github.com/uw-biomedical-ml/AIREADI_dataloader/blob/810d8daca0ef3bfde2bc297e289eb3615284ca51/dataloader_access_table.csv).
+Valid combinations can be found in the [AIREADI Dataloader Access Table](https://github.com/uw-biomedical-ml/AIREADI_dataloader/blob/main_merged_bug/dataloader_access_table.csv).
 
 ---
 
