@@ -240,7 +240,7 @@ Filters data based on the anatomical region imaged. The available options for `a
 - `Mosaic`
 - `Nasal`
 
-**Note:** Ensure you input a valid combination of `anatomic_region` with respect to device and imaging conditions. Refer to the [AIREADI Dataloader Access Table](https://github.com/uw-biomedical-ml/AIREADI_dataloader/blob/810d8daca0ef3bfde2bc297e289eb3615284ca51/dataloader_access_table.csv) for possible valid combinations.
+**Note:** Ensure you input a valid combination of `anatomic_region` with respect to device and imaging conditions. Refer to the [AIREADI Dataloader Access Table](https://github.com/uw-biomedical-ml/AIREADI_dataloader/blob/main_merged_bug/dataloader_access_table.csv) for possible valid combinations.
 
 ### `device` (str, required)
 Filters patients based on the OCT device used for imaging (e.g., `'Maestro2'`,  `'Cirrus'`). This argument is required and must be explicitly set by the user to avoid biasing the dataset toward a particular device or vendor.
