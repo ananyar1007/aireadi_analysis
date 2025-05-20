@@ -20,33 +20,65 @@ We strongly recommend using the [`build_dataset.py`](./examples/build_dataset.py
 
 ### 🔧 Install Environment
 
-1. **Create environment with conda:**
+You can use **Python 3.10** or **3.12**, depending on your system and preferences.
+
+---
+
+#### 🐍 Option 1: Python 3.10 (Recommended for Compatibility)
+
+1. **Create environment:**
 
     ```sh
     conda create -n aireadi python=3.10 -y
     conda activate aireadi
     ```
 
-2. **Install dependencies:**
+2. **Clone repo:**
 
     ```sh
     git clone https://github.com/uw-biomedical-ml/aireadi_loader.git 
     cd aireadi_loader
     ```
 
-3. **Install PyTorch and CUDA:**
-
-    - To install PyTorch via pip:
-
-        ```sh
-        pip install torch==2.1.0 torchvision==0.16.0 torchaudio==2.1.0 --index-url https://download.pytorch.org/whl/cu118
-        ```
-
-4. **Install additional dependencies:**
+3. **Install PyTorch + CUDA:**
 
     ```sh
-    pip install -r requirement_no_torch.txt
+    pip install torch==2.1.0 torchvision==0.16.0 torchaudio==2.1.0 --index-url https://download.pytorch.org/whl/cu118
     ```
+
+4. **Install remaining dependencies:**
+
+    ```sh
+    pip install -r requirement_no_torch_python_3_10.txt
+    ```
+
+---
+
+#### 🐍 Option 2: Python 3.12 (Experimental)
+
+1. **Create environment:**
+
+    ```sh
+    conda create -n aireadi python=3.12 -y
+    conda activate aireadi
+    ```
+
+2. **Clone repo and install PyTorch:**
+
+    ```sh
+    git clone https://github.com/uw-biomedical-ml/aireadi_loader.git 
+    cd aireadi_loader
+    pip install torch==2.2.0+cu118 --index-url https://download.pytorch.org/whl/cu118
+    ```
+
+3. **Install remaining dependencies:**
+
+    ```sh
+    pip install -r requirement_no_torch_python_3_12.txt
+    ```
+
+---
+
 
 ## Usage
 
