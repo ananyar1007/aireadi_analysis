@@ -380,6 +380,9 @@ class PatientDatasetInit:
                 GetLabel(keys=["label"], concept_id=self.concept_id),
                 # Inspector(keys=["frames"]),
                 *transform.transforms,
+                ToTensord(
+                    keys=["frames", "label"], track_meta=False, dtype=torch.float32, 
+                ),  # Convert image and label to tensor
                 FilterFramesLabel(keys=["frames", "label"]),
             ]
         )  # Convert image and label to tensor])
@@ -536,7 +539,7 @@ class PatientCacheDataset(PatientDatasetInit, CacheDataset):
             num_workers: Number of workers to pre-cache data with.
             transform (callable, optional): A PyTorch-compatible transform to apply on individual samples. Default is None.
             return_patient_id (bool): If True, returns the patient ID along with the data. Default is False.
-            octa_enface_imaging (str): Specifies OCTA slab data to access. One of {'superficial', 'deep', 'outer_retina', 'choriocapillaris'}. 
+            octa_enface_imaging (str): Specifies OCTA slab data to access. One of {'superficial', 'deep', 'outer_retina', 'choriocapillaris'}.
             **kwargs: Additional arguments to be stored as attributes of the class.
 
         Attributes:
