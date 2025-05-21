@@ -82,7 +82,7 @@ This example demonstrates how to utilize the AIREADI dataloader for various inpu
 **Note:** The core focus of this release is the **dataloader itself**, not model training.  
 However, we include example training scripts to showcase how the dataloader can be integrated into practical workflows.
 
-## Step 1: Choose a Training Target
+### Step 1: Choose a Training Target
 
 Decide which clinical variable (training target) to predict. Each target is encoded using a `concept_id`.  
 You can find the corresponding `concept_id` for your variable of interest in the [AIREADI Data Domain Table](https://docs.aireadi.org/v2-dataDomainTable).  
@@ -90,7 +90,7 @@ You can find the corresponding `concept_id` for your variable of interest in the
 For example, to predict HbA1c, search for `"Hba1c"` in the table — the `TARGET_CONCEPT_ID` will be `3004410`.
 
 
-## Step 2: Select Imaging Conditions
+### Step 2: Select Imaging Conditions
 
 Choose the imaging condition(s) you want to train on, such as:
 
@@ -101,28 +101,7 @@ Choose the imaging condition(s) you want to train on, such as:
 Valid combinations can be found in the [AIREADI Dataloader Access Table](https://github.com/uw-biomedical-ml/AIREADI_dataloader/blob/main_merged_bug/dataloader_access_table.csv).
 
 
-## Step 3: Build the Dataset
-
-Use the `build_dataset()` function defined in `build_dataset.py` to construct your dataset.  
-You will need to set a few required parameters — see the [Key Parameters](#key-parameters) section for details.
-
-Example:
-
-```python
-from build_dataset import build_dataset
-from monai.data import DataLoader
-
-train_dataset = build_dataset(is_train=True, args=args)
-train_loader = DataLoader(train_dataset, batch_size=8, shuffle=True, num_workers=4)
-
-test_dataset = build_dataset(is_train=False, args=args)
-test_loader = DataLoader(test_dataset, batch_size=8, shuffle=False, num_workers=4)
-```
-
-**Note:** `shuffle=True` has no effect when using `PatientFastAccessDataset`, which inherits from PyTorch's `IterableDataset`.
-
-
-### Transformations
+### Step 3: Define Transformations
 
 This dataloader uses a dictionary-based transformation pipeline compatible with [MONAI](https://monai.io/), where inputs are expected in the form of a dictionary (e.g., `{"frames": ..., "label": ...}`). MONAI's `Compose` and dictionary-style transforms (like `Resized`, `RandRotated`, etc.) are used to apply preprocessing consistently across multimodal or sequence-based data.
 
@@ -140,7 +119,7 @@ Make sure to include this flag in your transform pipeline when using `ToTensord`
 This is a custom transform used to filter out samples that do not meet specific criteria (e.g., empty frames or missing labels).
 
 
-### Example Transform (for Training)
+#### Example Transform (for Training)
 
 ```python
 train_transform = Compose([
@@ -162,7 +141,29 @@ train_transform = Compose([
 ])
 ```
 
-## Step 4: Train the Model
+### Step 4: Build the Dataset
+
+Use the `build_dataset()` function defined in `build_dataset.py` to construct your dataset.  
+You will need to set a few required parameters — see the [Key Parameters](#key-parameters) section for details.
+
+Example:
+
+```python
+from build_dataset import build_dataset
+from monai.data import DataLoader
+
+train_dataset = build_dataset(is_train=True, args=args)
+train_loader = DataLoader(train_dataset, batch_size=8, shuffle=True, num_workers=4)
+
+test_dataset = build_dataset(is_train=False, args=args)
+test_loader = DataLoader(test_dataset, batch_size=8, shuffle=False, num_workers=4)
+```
+
+**Note:** `shuffle=True` has no effect when using `PatientFastAccessDataset`, which inherits from PyTorch's `IterableDataset`.
+
+
+
+### Step 5: Train the Model
 
 During training, data samples are accessed using:
 
