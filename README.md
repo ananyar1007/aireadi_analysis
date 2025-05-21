@@ -89,7 +89,6 @@ You can find the corresponding `concept_id` for your variable of interest in the
 
 For example, to predict HbA1c, search for `"Hba1c"` in the table — the `TARGET_CONCEPT_ID` will be `3004410`.
 
----
 
 ## Step 2: Select Imaging Conditions
 
@@ -101,7 +100,6 @@ Choose the imaging condition(s) you want to train on, such as:
 
 Valid combinations can be found in the [AIREADI Dataloader Access Table](https://github.com/uw-biomedical-ml/AIREADI_dataloader/blob/main_merged_bug/dataloader_access_table.csv).
 
----
 
 ## Step 3: Build the Dataset
 
@@ -124,6 +122,46 @@ test_loader = DataLoader(test_dataset, batch_size=8, shuffle=False, num_workers=
 **Note:** `shuffle=True` has no effect when using `PatientFastAccessDataset`, which inherits from PyTorch's `IterableDataset`.
 
 
+### Transformations
+
+This dataloader uses a dictionary-based transformation pipeline compatible with [MONAI](https://monai.io/), where inputs are expected in the form of a dictionary (e.g., `{"frames": ..., "label": ...}`). MONAI's `Compose` and dictionary-style transforms (like `Resized`, `RandRotated`, etc.) are used to apply preprocessing consistently across multimodal or sequence-based data.
+
+> **Note on `track_meta=False` in `ToTensord`**
+
+The transform `ToTensord` includes `track_meta=False` to disable MONAI's metadata tracking. This dataloader is designed to simply return image–label pairs without relying on metadata.
+This is **important for performance and compatibility**:
+- If `track_meta=True` (default), MONAI attaches metadata to tensors. While useful in some medical imaging workflows, this metadata is not needed in our case and can introduce unnecessary complexity.
+- Setting `track_meta=False` ensures that the output is a plain PyTorch tensor, which simplifies batching, improves memory efficiency, and avoids potential issues when saving models or using non-MONAI pipelines.
+
+Make sure to include this flag in your transform pipeline when using `ToTensord`.
+
+>  **Note on 'FilterFramesLabel(keys=["frames", "label"])**
+
+This is a custom transform used to filter out samples that do not meet specific criteria (e.g., empty frames or missing labels).
+
+
+### Example Transform (for Training)
+
+```python
+train_transform = Compose([
+    Resized(
+        keys=["frames"],
+        spatial_size=(input_size, input_size),
+        mode="bilinear",
+    ),
+    ScaleIntensityd(keys=["frames"]),
+    ToTensord(keys=["frames", "label"], track_meta=False),
+    RandRotated(
+        keys=["frames"],
+        range_x=(-0.17, 0.17),
+        prob=0.5,
+        mode="bilinear",
+    ),
+    FilterFramesLabel(keys=["frames", "label"]),
+    ToFloat(keys=["frames"]),
+])
+```
+
 ## Step 4: Train the Model
 
 During training, data samples are accessed using:
@@ -135,6 +173,7 @@ for batch in dataloader:
     ...
 ```
 
+---
 ## Example: 2D, 3D, and Multimodal Training
 
 - 2D Model Training: For slice-based inputs such as OCT/OCTA center slices, OCTA slabs, and fundus images (CFP/IR).
