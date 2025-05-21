@@ -2,7 +2,7 @@
 A PyTorch Dataset for loading and processing [AI-READI](https://docs.aireadi.org/docs/2/about) dataset. 
 
 # PatientDataset Class Overview
-The `PatientDataset` class is a PyTorch `Dataset` designed to handle patient data from the AI-READI dataset. It supports various configurations to filter, preprocess, and transform patient data for tasks like image processing and clinical analysis. This module provides MONAI-compatible dataset classes for loading OCT/OCTA/Photography imaging data, supporting both cache-based and on-demand access. It is tested with `monai.data.DataLoader` and follows MONAI-style dictionary-based outputs.
+The `PatientDataset` class is a PyTorch `Dataset` designed to handle patient data from the AI-READI dataset. The dataset includes 3D OCT, 3D OCTA, 2D fundus, and en face images, with 1,067 cases (and growing) and over 1,500 diverse tasks spanning segmentation, classification, and regression. This dataloader supports flexible configuration to filter, preprocess, and transform patient data for machine learning tasks in both image analysis and clinical prediction. This module provides MONAI-compatible dataset classes for loading OCT/OCTA/Photography imaging data, supporting both cache-based and on-demand access. It is tested with `monai.data.DataLoader` and follows MONAI-style dictionary-based outputs.
 
 Each dataset returns a dictionary per sample with the following keys:
 
@@ -20,11 +20,6 @@ We strongly recommend using the [`build_dataset.py`](./examples/build_dataset.py
 
 ### 🔧 Install Environment
 
-You can use **Python 3.10** or **3.12**, depending on your system and preferences.
-
----
-
-#### 🐍 Option 1: Python 3.10 (Recommended for Compatibility)
 
 1. **Create environment:**
 
@@ -52,33 +47,22 @@ You can use **Python 3.10** or **3.12**, depending on your system and preference
     pip install -r requirements_no_torch_python_3_10.txt
     ```
 
----
 
-#### 🐍 Option 2: Python 3.12 (Experimental)
+### ⚠️ Platform & Environment Notes
 
-1. **Create environment:**
+- This dataloader currently supports **Linux** systems only.  
+  (Installation has **not been tested** on Windows or macOS.)
+- Make sure you have a **CUDA-compatible GPU** and the correct **NVIDIA drivers** installed for GPU acceleration.
+- Tested with:
+  - **Python 3.10**
+  - **CUDA 11.8**
+  - **PyTorch 2.1**
 
-    ```sh
-    conda create -n aireadi python=3.12 -y
-    conda activate aireadi
-    ```
+>🛠️ If you're using Windows, WSL2 with Ubuntu may work, but we recommend Linux for best compatibility and performance.
 
-2. **Clone repo and install PyTorch:**
 
-    ```sh
-    git clone https://github.com/uw-biomedical-ml/aireadi_loader.git 
-    cd aireadi_loader
-    pip install torch==2.2.0+cu118 --index-url https://download.pytorch.org/whl/cu118
-    ```
-
-3. **Install remaining dependencies:**
-
-    ```sh
-    pip install -r requirements_no_torch_python_3_12.txt
-    ```
 
 ---
-
 
 ## Usage
 
@@ -243,7 +227,7 @@ Filters data based on the anatomical region imaged. The available options for `a
 **Note:** Ensure you input a valid combination of `anatomic_region` with respect to device and imaging conditions. Refer to the [AIREADI Dataloader Access Table](https://github.com/AI-READI/aireadi_loader/blob/main/dataloader_access_table.csv) for possible valid combinations.
 
 
-### `device` (str, required)
+### `imaging_device` (str, required)
 Filters patients based on the OCT device used for imaging (e.g., `'Maestro2'`,  `'Cirrus'`). This argument is required and must be explicitly set by the user to avoid biasing the dataset toward a particular device or vendor.
 
 ### `concept_id` (int, default: `0`)
