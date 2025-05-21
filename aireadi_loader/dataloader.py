@@ -475,8 +475,6 @@ class PatientDataset(PatientDatasetInit, Dataset):
             imaging (str): Imaging modality to filter the dataset (e.g., 'oct', 'cfp', 'ir'). Default is 'oct'.
             concept_id (int): Concept ID to filter patients. If -1, `cls_idx` is derived from `study_group`. Default is -1.
             ignore_values (list): A list of `source_value` values to ignore during filtering. Default is [777, 999].
-            volume_resize (tuple): Tuple (width, height) for resizing volumes. Only used in "volume" mode. Default is (224, 224).
-            preprocess (callable, optional): A function to preprocess images or volumes before applying transformations. Default is None.
             transform (callable, optional): A PyTorch-compatible transform to apply on individual samples. Default is None.
             return_patient_id (bool): If True, returns the patient ID along with the data. Default is False.
             octa_enface_imaging (str): Ophthalmic image type for OCTA enface to filter the dataset (e.g., superficial, deep, outer_retina, choriocapillaris). Default is 'superficial'.
@@ -533,11 +531,12 @@ class PatientCacheDataset(PatientDatasetInit, CacheDataset):
             imaging_device (str): Device model to filter the dataset. Default is 'Maestro2'.
             imaging (str): Imaging modality to filter the dataset (e.g., 'oct', 'cfp', 'ir'). Default is 'oct'.
             concept_id (int): Concept ID to filter patients. If -1, `cls_idx` is derived from `study_group`. Default is -1.
+            cache_rate (float): Percentage of dataset to hold in cache. Default is 0.2.
             ignore_values (list): A list of `source_value` values to ignore during filtering. Default is [777, 999].
-            volume_resize (tuple): Tuple (width, height) for resizing volumes. Only used in "volume" mode. Default is (224, 224).
-            preprocess (callable, optional): A function to preprocess images or volumes before applying transformations. Default is None.
+            num_workers: Number of workers to pre-cache data with.
             transform (callable, optional): A PyTorch-compatible transform to apply on individual samples. Default is None.
             return_patient_id (bool): If True, returns the patient ID along with the data. Default is False.
+            octa_enface_imaging (str): Specifies OCTA slab data to access. One of {'superficial', 'deep', 'outer_retina', 'choriocapillaris'}. 
             **kwargs: Additional arguments to be stored as attributes of the class.
 
         Attributes:
@@ -596,9 +595,8 @@ class PatientFastAccessDataset(PatientDatasetInit, IterableDataset):
             imaging_device (str): Device model to filter the dataset. Default is 'Maestro2'.
             imaging (str): Imaging modality to filter the dataset (e.g., 'oct', 'cfp', 'ir'). Default is 'oct'.
             concept_id (int): Concept ID to filter patients. If -1, `cls_idx` is derived from `study_group`. Default is -1.
+            cache_rate (float): Percentage of dataset to hold in cache. Default is 0.2.
             ignore_values (list): A list of `source_value` values to ignore during filtering. Default is [777, 999].
-            volume_resize (tuple): Tuple (width, height) for resizing volumes. Only used in "volume" mode. Default is (224, 224).
-            preprocess (callable, optional): A function to preprocess images or volumes before applying transformations. Default is None.
             transform (callable, optional): A PyTorch-compatible transform to apply on individual samples. Default is None.
             return_patient_id (bool): If True, returns the patient ID along with the data. Default is False.
             **kwargs: Additional arguments to be stored as attributes of the class.
