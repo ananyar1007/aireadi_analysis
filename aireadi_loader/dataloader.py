@@ -18,7 +18,6 @@ from monai.transforms import (
     ToTensord,
     Compose,
     LoadImageD,
-    Transposed,
     EnsureChannelFirstD,
 )
 import torch.nn.functional as F
@@ -41,8 +40,6 @@ from .transforms import (
     SliceVolume,
     ToRGB,
     FilterFramesLabel,
-    Inspector,
-    LoadInspect,
 )
 
 
