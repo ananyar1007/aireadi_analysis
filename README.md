@@ -116,7 +116,7 @@ Make sure to include this flag in your transform pipeline when using `ToTensord`
 
 >  **Note on 'FilterFramesLabel(keys=["frames", "label"])**
 
-This is a custom transform used to filter out samples that do not meet specific criteria (e.g., empty frames or missing labels).
+This is a custom transform used to filter out samples that do not meet specific criteria.
 
 
 #### Example Transform (for Training)
