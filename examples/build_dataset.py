@@ -22,7 +22,7 @@ from monai.transforms import (
 
 
 def build_dataset(is_train, args):
-    split = "train" if is_train else "test"
+    split = "train" if is_train else "val"
     if (
         args.patient_dataset_type == "center_slice"
         or args.patient_dataset_type == "slice"

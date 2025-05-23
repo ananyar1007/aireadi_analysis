@@ -615,14 +615,13 @@ class PatientFastAccessDataset(PatientDatasetInit, IterableDataset):
             concept_id=concept_id,
             cache_rate=cache_rate,
             ignore_values=ignore_values,
-            return_patient_id=return_patient_id,
             transform=transform,
         )
 
         self.cache_rate = cache_rate
         self.slice_cache = {}
         self.total_slice_cache_size = int(len(self.visits_dict_slice) * cache_rate)
-        print(self.total_slice_cache_size)
+        print(f'Cache size: {self.total_slice_cache_size} slices')
         self.main_volume_list = list(self.visits_dict.keys())
         random.shuffle(self.main_volume_list)
 
@@ -636,13 +635,8 @@ class PatientFastAccessDataset(PatientDatasetInit, IterableDataset):
     def __iter__(self):
 
         return self._slice_gen()
-
+    
     def _slice_gen(self):
-        """
-        Returns:
-            slice_frame (torch.Tensor): The 2D slice data.
-            metadata (dict): Metadata including patient_id, file_path, and OCT metadata.
-        """
         self.worker_init_fn()
 
         while (len(self.worker_vol_list) > 0) | (len(self.slice_cache) > 0):
@@ -666,6 +660,7 @@ class PatientFastAccessDataset(PatientDatasetInit, IterableDataset):
             frame = np.stack([frame] * 3, axis=0)  # To RGB [C,H, W]
             frame = np.asarray(frame, dtype=float)
             data_dict["frames"] = frame
+            
             data_dict = self.transform(data_dict)
 
             yield data_dict
