@@ -1,6 +1,18 @@
 # aireadi_dataloader
 A PyTorch Dataset for loading and processing [AI-READI](https://docs.aireadi.org/docs/2/about) dataset. 
 
+
+# Table of Contents
+
+- [PatientDataset Class Overview](#patientdataset-class-overview)
+- [Installation](#-installation)
+- [Usage](#usage)
+- [Dataset Classes](#dataset-classes)
+- [Credits](#credits)
+
+
+---
+
 # PatientDataset Class Overview
 The `PatientDataset` class is a PyTorch `Dataset` designed to handle patient data from the AI-READI dataset. The dataset includes 3D OCT, 3D OCTA, 2D fundus, and en face images, with 1,067 cases (and growing) and over 1,500 diverse tasks spanning segmentation, classification, and regression. This dataloader supports flexible configuration to filter, preprocess, and transform patient data for machine learning tasks in both image analysis and clinical prediction. This module provides MONAI-compatible dataset classes for loading OCT/OCTA/Photography imaging data, supporting both cache-based and on-demand access. It is tested with `monai.data.DataLoader` and follows MONAI-style dictionary-based outputs.
 
@@ -18,7 +30,7 @@ We strongly recommend using the [`build_dataset.py`](./examples/build_dataset.py
 - **Support for Multiple Imaging Modalities and Devices**: Handles images from various devices, models, imaging techniques (OCT, IR, CFP, OCTA, etc.), and anatomical regions. Users can specify which device or imaging type to load, making it easy to extract specific datasets via the API.  
 
 
-### 🔧 Install Environment
+# 🔧 Installation
 
 
 1. **Create environment:**
@@ -64,7 +76,11 @@ We strongly recommend using the [`build_dataset.py`](./examples/build_dataset.py
 
 ---
 
-## Usage
+# Usage
+
+This example demonstrates how to utilize the AIREADI dataloader for various input configurations.  
+**Note:** The core focus of this release is the **dataloader itself**, not model training.  
+However, we include example training scripts to showcase how the dataloader can be integrated into practical workflows.
 
 ### Step 1: Choose a Training Target
 
@@ -73,7 +89,6 @@ You can find the corresponding `concept_id` for your variable of interest in the
 
 For example, to predict HbA1c, search for `"Hba1c"` in the table — the `TARGET_CONCEPT_ID` will be `3004410`.
 
----
 
 ### Step 2: Select Imaging Conditions
 
@@ -85,9 +100,48 @@ Choose the imaging condition(s) you want to train on, such as:
 
 Valid combinations can be found in the [AIREADI Dataloader Access Table](https://github.com/uw-biomedical-ml/AIREADI_dataloader/blob/main_merged_bug/dataloader_access_table.csv).
 
----
 
-### Step 3: Build the Dataset
+### Step 3: Define Transformations
+
+This dataloader uses a dictionary-based transformation pipeline compatible with [MONAI](https://monai.io/), where inputs are expected in the form of a dictionary (e.g., `{"frames": ..., "label": ...}`). MONAI's `Compose` and dictionary-style transforms (like `Resized`, `RandRotated`, etc.) are used to apply preprocessing consistently across multimodal or sequence-based data.
+
+> **Note on `track_meta=False` in `ToTensord`**
+
+The transform `ToTensord` includes `track_meta=False` to disable MONAI's metadata tracking. This dataloader is designed to simply return image–label pairs without relying on metadata.
+This is **important for performance and compatibility**:
+- If `track_meta=True` (default), MONAI attaches metadata to tensors. While useful in some medical imaging workflows, this metadata is not needed in our case and can introduce unnecessary complexity.
+- Setting `track_meta=False` ensures that the output is a plain PyTorch tensor, which simplifies batching, improves memory efficiency, and avoids potential issues when saving models or using non-MONAI pipelines.
+
+Make sure to include this flag in your transform pipeline when using `ToTensord`.
+
+>  **Note on 'FilterFramesLabel(keys=["frames", "label"])**
+
+This is a custom transform used to filter out samples that do not meet specific criteria.
+
+
+#### Example Transform (for Training)
+
+```python
+train_transform = Compose([
+    Resized(
+        keys=["frames"],
+        spatial_size=(input_size, input_size),
+        mode="bilinear",
+    ),
+    ScaleIntensityd(keys=["frames"]),
+    ToTensord(keys=["frames", "label"], track_meta=False),
+    RandRotated(
+        keys=["frames"],
+        range_x=(-0.17, 0.17),
+        prob=0.5,
+        mode="bilinear",
+    ),
+    FilterFramesLabel(keys=["frames", "label"]),
+    ToFloat(keys=["frames"]),
+])
+```
+
+### Step 4: Build the Dataset
 
 Use the `build_dataset()` function defined in `build_dataset.py` to construct your dataset.  
 You will need to set a few required parameters — see the [Key Parameters](#key-parameters) section for details.
@@ -108,7 +162,8 @@ test_loader = DataLoader(test_dataset, batch_size=8, shuffle=False, num_workers=
 **Note:** `shuffle=True` has no effect when using `PatientFastAccessDataset`, which inherits from PyTorch's `IterableDataset`.
 
 
-### Step 4: Train the Model
+
+### Step 5: Train the Model
 
 During training, data samples are accessed using:
 
@@ -119,9 +174,8 @@ for batch in dataloader:
     ...
 ```
 
+---
 ## Example: 2D, 3D, and Multimodal Training
-
-This example demonstrates how to utilize the AIREADI dataloader for various input configurations. While the core focus of this release is the dataloader, these scripts serve as practical starting points for model training:
 
 - 2D Model Training: For slice-based inputs such as OCT/OCTA center slices, OCTA slabs, and fundus images (CFP/IR).
 - 3D Model Training: For volume-based models that take full OCT or OCTA scans as input.
@@ -148,9 +202,9 @@ Refer to the example training scripts for full workflows:
 
 ---
 
-## Dataset Classes
+# Dataset Classes
 
-### PatientDataset
+## PatientDataset
 
 Base dataset class for on-demand loading. Used when `args.cache_rate == 0`. Suitable for low-memory environments or quick debugging.
 
@@ -160,7 +214,7 @@ Base dataset class for on-demand loading. Used when `args.cache_rate == 0`. Suit
 
 ---
 
-### PatientCacheDataset
+## PatientCacheDataset
 
 Caching dataset class used when `args.cache_rate > 0`. Loads a portion (or all) of the dataset into memory at initialization for faster training.
 
@@ -170,7 +224,7 @@ Caching dataset class used when `args.cache_rate > 0`. Loads a portion (or all) 
 
 ---
 
-### PatientFastAccessDataset
+## PatientFastAccessDataset
 
 Optimized caching class for 2D slice datasets when `args.patient_dataset_type == "slice"` and imaging is `"oct"` or `"octa"`.
 
@@ -279,7 +333,7 @@ Additional keyword arguments to configure the dataset.
 
 
 
-## Credits
+# Credits
 
 This dataloader was developed by Jack Strand, Yelena Bagdasarova, and Yuka Kihara from the [Computational Ophthalmology Lab](https://comp.ophthalmology.uw.edu/), led by Aaron Lee and Cecilia Lee.
 
