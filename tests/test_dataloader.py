@@ -7,20 +7,16 @@ import pandas as pd
 import copy
 from aireadi_loader.datasets import reverse_location_mapping
 import os
-import torch
-import pdb
-
-from monai.transforms.utility.dictionary import ToTensord
-from monai.transforms.compose import Compose
-from monai.transforms.spatial.dictionary import Resized
 from monai.data import DataLoader
 from PIL import Image
 import numpy as np
+import tqdm
+import time
 
 
 def try_iterating(d, lim=5):
     i = 0
-    for c in d:
+    for c in tqdm.tqdm(d):
         i += 1
         if i >= lim:
             return c
@@ -213,15 +209,37 @@ for cache_rate in [0.00, 0.01]:
                 print()
 
                 try:
+
+                    def tm():
+                        return time.monotonic()
+
+                    print("building dataset...")
+                    st = tm()
+
                     d = build_dataset(is_train=True, args=args)
-                    item = try_iterating(d)
+                    print(f"built dataset in {tm() - st}")
+
+                    print("iterating dataset...")
+                    dataset_iters = 5
+                    st = tm()
+                    item = try_iterating(d, lim=dataset_iters)
+                    print(
+                        f"iterated dataset {dataset_iters} times in {tm() - st} ({(tm() - st )/ dataset_iters}s/it)"
+                    )
+                    st = tm()
+                    print("building dataloader...")
                     loader = DataLoader(
                         d,
                         batch_size=16,
-                        num_workers=00,
+                        num_workers=10,
                         drop_last=True,
                     )
-                    try_iterating(loader, 100)
+                    print(f"built dataloader in {tm() - st}")
+                    dataloader_iters = 5
+                    try_iterating(loader, 5)
+                    print(
+                        f"iterated dataset {dataloader_iters} times in {tm() - st} ({(tm() - st )/ dataloader_iters}s/it)"
+                    )
                     if save_images:
                         if mode != "volume":
                             if datum["octa_enface_imaging"] == "None":
