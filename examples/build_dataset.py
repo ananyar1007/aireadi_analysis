@@ -5,7 +5,6 @@
 # in the root directory of this source tree.
 # --------------------------------------------------------
 from aireadi_loader.dataloader import PatientDataset, PatientCacheDataset, PatientFastAccessDataset
-from aireadi_loader.transforms import FilterFramesLabel, ToFloat
 
 
 from monai.transforms import (
@@ -14,10 +13,8 @@ from monai.transforms import (
     RandRotated,
     RandFlipd,
     ScaleIntensityd,
-    ToTensord,
     RandRotated,
     RandFlipd,
-    ToTensord,
 )
 
 
@@ -31,7 +28,7 @@ def build_dataset(is_train, args):
 
     else:
         transform = build_transform_3d(is_train, args)
-    # if args.transform is None:
+
     args.transform = transform
 
     if args.cache_rate != 0:
@@ -51,6 +48,7 @@ def build_dataset(is_train, args):
                 cache_rate=args.cache_rate,
                 transform=args.transform,
                 octa_enface_imaging=args.octa_enface_imaging,
+                shuffle=is_train
             )
         else:
             dataset = PatientCacheDataset(
@@ -94,52 +92,25 @@ def build_transform_2d(is_train, args):
 def create_2d_transforms(imaging, input_size):
 
     # train transform
-    if imaging == "oct":
-        train_transform = Compose(
-            [
-                Resized(
-                    keys=["frames"],
-                    spatial_size=(input_size, input_size),
-                    mode="bilinear",
-                ),  # Resize with bilinear interpolation
-                # RandFlipd(keys=["frames"], spatial_axis=1, prob=0.5),  # Random horizontal flip
-                ScaleIntensityd(keys=["frames"]),
-                #ToTensord(
-                #    keys=["frames", "label"], track_meta=False
-                #),  # Convert image and label to tensor
-                RandRotated(
-                    keys=["frames"],
-                    range_x=(-0.17, 0.17),
-                    prob=0.5,
-                    mode="bilinear",
-                ),  # Random rotation (in radian)
-                FilterFramesLabel(keys=["frames", "label"]),
-                #ToFloat(keys=["frames"]),
-            ]
-        )
-    else:
-        train_transform = Compose(
-            [
-                Resized(
-                    keys=["frames"],
-                    spatial_size=(input_size, input_size),
-                    mode="bilinear",
-                ),  # Resize with bilinear interpolation
-                # RandFlipd(keys=["frames"], spatial_axis=1, prob=0.5),  # 0:vertical, 1:horizontal (ignore C dimension [C, H, W])
-                ScaleIntensityd(keys=["frames"]),
-                #ToTensord(
-                #    keys=["frames", "label"], track_meta=False
-                #),  # Convert image and label to tensor
-                RandRotated(
-                    keys=["frames"],
-                    range_x=(-0.17, 0.17),
-                    prob=0.5,
-                    mode="bilinear",
-                ),  # Random rotation (in radian)
-                #FilterFramesLabel(keys=["frames", "label"]),
-                #ToFloat(keys=["frames"]),
-            ]
-        )
+    train_transform = Compose(
+        [
+            Resized(
+                keys=["frames"],
+                spatial_size=(input_size, input_size),
+                mode="bilinear",
+            ),  # Resize with bilinear interpolation
+            # RandFlipd(keys=["frames"], spatial_axis=1, prob=0.5),  # Random horizontal flip
+            ScaleIntensityd(keys=["frames"]),
+            RandRotated(
+                keys=["frames"],
+                range_x=(-0.17, 0.17),
+                prob=0.5,
+                mode="bilinear",
+            ),  # Random rotation (in radian)
+
+        ]
+    )
+
 
     # eval transform
     val_transform = Compose(
@@ -148,11 +119,6 @@ def create_2d_transforms(imaging, input_size):
                 keys=["frames"], spatial_size=(input_size, input_size), mode="bilinear",
             ),
             ScaleIntensityd(keys=["frames"]),
-            #ToTensord(
-            #    keys=["frames", "label"], track_meta=False
-            #),  # Convert image and label to tensor
-            #FilterFramesLabel(keys=["frames", "label"]),
-            #ToFloat(keys=["frames"]),
         ]
     )
     return train_transform, val_transform
@@ -181,8 +147,6 @@ def create_3d_transforms(num_frames, input_size):
                 keys=["frames"], prob=0.5, spatial_axis=0
             ),  # 0:depth  1:vertical, 2:horizontal (ignore channel dimension [C, D, H, W])
             ScaleIntensityd(keys=["frames"]),
-            #ToTensord(keys=["frames", "label"], track_meta=False),  # Convert frames and label to tensor
-            #ToFloat(keys=["frames"]),
         ]
     )
 
@@ -195,7 +159,6 @@ def create_3d_transforms(num_frames, input_size):
                 mode=("trilinear"),
             ),
             ScaleIntensityd(keys=["frames"]),
-            #ToTensord(keys=["frames", "label"], track_meta=False),  # Convert frames and label to tensor
         ]
     )
 

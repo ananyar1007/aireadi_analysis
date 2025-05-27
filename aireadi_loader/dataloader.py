@@ -41,7 +41,6 @@ from .transforms import (
     GetLabel,
     SliceVolume,
     ToRGB,
-    FilterFramesLabel,
 )
 
 
@@ -266,6 +265,13 @@ class PatientDatasetInit:
         for key, value in kwargs.items():
             setattr(self, key, value)
 
+
+        for k in self.visits_dict.keys():
+            self.visits_dict[k]['index'] = k
+
+        for k,v in self.visits_dict.items():
+            self.visits_dict[k]['path'] = self.visits_dict[k]['frames']
+
         # For indexing frame level (only used in mode == 'slice', and oct or octa)
         if self.imaging == "octa" and self.octa_enface_imaging is not None:  # slab data
             # slab data is 2D
@@ -289,7 +295,7 @@ class PatientDatasetInit:
                 # Extend the Volume-Level Dictionary to Slice-Level
                 self.make_visits_dict_slice()
                 if cache_rate is not None:
-                    loadtransform = []
+                    loadtransform = [] #PatientFastAccessDataloader
                 else:
 
                     self.visits_dict = self.visits_dict_slice
@@ -369,7 +375,7 @@ class PatientDatasetInit:
                     track_meta=False,
                     dtype=torch.float32,
                 ),  # Convert image and label to tensor
-                SelectItemsd(keys=["frames", "label","index"],allow_missing_keys=True),
+                SelectItemsd(keys=["frames", "label","index","path"],allow_missing_keys=True),
             ]
         )
         return self
@@ -410,6 +416,7 @@ class PatientDatasetInit:
                 for slice_idx in range(num_slices):
                     slice_data = copy.copy(visit_data)
                     slice_data["slice_index"] = slice_idx
+                    slice_data["index"] = i #global index of item
                     visits_dict_slice[i] = slice_data
                     i += 1
 

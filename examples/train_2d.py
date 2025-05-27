@@ -35,7 +35,7 @@ import torch.optim as optim
 import torch.nn.functional as F
 import torchvision.models as models
 from torch.utils.tensorboard import SummaryWriter
-
+from torch.utils.data import IterableDataset
 from monai.data import DataLoader
 from monai.utils import set_determinism
 
@@ -516,12 +516,15 @@ def main(args):
     dataset_train = build_dataset(is_train=True, args=args)
     dataset_val = build_dataset(is_train=False, args=args)
 
+    is_iterable_dataset = isinstance(dataset_train, IterableDataset)
+    dataloader_shuffle = False if is_iterable_dataset else True
+
     # Create DataLoaders
     data_loader_train = DataLoader(
         dataset_train,
         batch_size=args.batch_size,
         num_workers=args.num_workers,
-        #shuffle=True,
+        shuffle=dataloader_shuffle,
     )
     data_loader_val = DataLoader(
         dataset_val,
