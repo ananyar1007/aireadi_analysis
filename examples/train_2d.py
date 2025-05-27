@@ -173,7 +173,7 @@ def validate(model, dataloader, loss_fn, device):
     all_probs = []
 
     with torch.no_grad():
-        for data_iter_step, batch in enumerate(dataloader):
+        for data_iter_step, batch in enumerate(tqdm(dataloader)):
 
             images, labels = (
                 batch["frames"].to(device),
@@ -273,7 +273,7 @@ def validate_reg(model, dataloader, loss_fn, device):
     all_labels = []
     all_preds = []
     with torch.no_grad():
-        for data_iter_step, batch in enumerate(dataloader):
+        for data_iter_step, batch in enumerate(tqdm(dataloader)):
             images, labels = (
                 batch["frames"].to(device),
                 batch["label"].to(device).float(),
