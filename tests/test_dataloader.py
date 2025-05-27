@@ -104,7 +104,6 @@ concept_id = -1
 split = "train"
 ignore_values = [777, 999, 555, 888]
 volume_resize = (224, 224)
-return_patient_id = False
 save_images = False
 
 
@@ -196,7 +195,6 @@ for cache_rate in [0.00, 0.01]:
                 args.volume_resize = volume_resize
                 args.transform = transform
                 args.cache_rate = cache_rate
-                args.return_patient_id = return_patient_id
                 args.root_dir = data_path
                 args.data_path = data_path
                 args.patient_dataset_type = mode

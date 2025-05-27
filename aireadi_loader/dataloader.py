@@ -19,6 +19,8 @@ from monai.transforms import (
     Compose,
     LoadImageD,
     EnsureChannelFirstD,
+    SelectItemsd,
+    Identityd
 )
 import torch.nn.functional as F
 from typing import Optional, Callable
@@ -62,7 +64,6 @@ class PatientDatasetInit:
     imaging_device: str
     root_dir: str
     concept_id: int
-    return_patient_id: bool
     mapping_patient2visit: dict[int, list[int]]
     visits_dict: dict[int, dict[str, Any]]
     patient_all_dict: dict[int, dict[str, Any]]
@@ -81,7 +82,6 @@ class PatientDatasetInit:
         imaging="oct",
         concept_id=-1,
         ignore_values=[777, 999, 555, 888],
-        return_patient_id=False,
         octa_enface_imaging=None,
         cache_rate=None,
         transform=None,
@@ -179,7 +179,6 @@ class PatientDatasetInit:
         self.root_dir = root_dir
 
         self.concept_id = concept_id
-        self.return_patient_id = return_patient_id
 
         self.imaging_device = imaging_device
         self.location = location_mapping[anatomic_region]
@@ -363,27 +362,18 @@ class PatientDatasetInit:
             raise ValueError(
                 f"Expected one of ['oct', 'octa', 'ir', 'cfp'], but got {self.imaging}"
             )
-
-        if transform == None:
-            print("transform is none")
-            transform = Compose(
-                [
-                    ToTensord(
-                        keys=["frames", "label"], track_meta=False, dtype=torch.float32
-                    ),
-                ]
-            )
+        if transform is None:
+            transform = Compose([Identityd(keys=["frames", "label"])])
 
         self.transform = Compose(
             [
                 *loadtransform,
                 GetLabel(keys=["label"], concept_id=self.concept_id),
-                # Inspector(keys=["frames"]),
                 *transform.transforms,
                 ToTensord(
                     keys=["frames", "label"], track_meta=False, dtype=torch.float32, 
                 ),  # Convert image and label to tensor
-                FilterFramesLabel(keys=["frames", "label"]),
+                SelectItemsd(keys=["frames", "label","index"],allow_missing_keys=True),
             ]
         )  # Convert image and label to tensor])
         return self
@@ -461,7 +451,6 @@ class PatientDataset(PatientDatasetInit, Dataset):
         concept_id=-1,
         ignore_values=[777, 999, 555, 888],
         transform=None,
-        return_patient_id=False,
         octa_enface_imaging=None,
         **kwargs,
     ):
@@ -479,7 +468,6 @@ class PatientDataset(PatientDatasetInit, Dataset):
             concept_id (int): Concept ID to filter patients. If -1, `cls_idx` is derived from `study_group`. Default is -1.
             ignore_values (list): A list of `source_value` values to ignore during filtering. Default is [777, 999].
             transform (callable, optional): A PyTorch-compatible transform to apply on individual samples. Default is None.
-            return_patient_id (bool): If True, returns the patient ID along with the data. Default is False.
             octa_enface_imaging (str): Ophthalmic image type for OCTA enface to filter the dataset (e.g., superficial, deep, outer_retina, choriocapillaris). Default is 'superficial'.
             **kwargs: Additional arguments to be stored as attributes of the class.
 
@@ -496,7 +484,6 @@ class PatientDataset(PatientDatasetInit, Dataset):
             imaging=imaging,
             concept_id=concept_id,
             ignore_values=ignore_values,
-            return_patient_id=return_patient_id,
             octa_enface_imaging=octa_enface_imaging,
             transform=transform,
         )
@@ -518,7 +505,6 @@ class PatientCacheDataset(PatientDatasetInit, CacheDataset):
         ignore_values=[777, 999, 555, 888],
         num_workers=10,
         transform=None,
-        return_patient_id=False,
         octa_enface_imaging=None,
         **kwargs,
     ):
@@ -538,7 +524,6 @@ class PatientCacheDataset(PatientDatasetInit, CacheDataset):
             ignore_values (list): A list of `source_value` values to ignore during filtering. Default is [777, 999].
             num_workers: Number of workers to pre-cache data with.
             transform (callable, optional): A PyTorch-compatible transform to apply on individual samples. Default is None.
-            return_patient_id (bool): If True, returns the patient ID along with the data. Default is False.
             octa_enface_imaging (str): Specifies OCTA slab data to access. One of {'superficial', 'deep', 'outer_retina', 'choriocapillaris'}.
             **kwargs: Additional arguments to be stored as attributes of the class.
 
@@ -555,7 +540,6 @@ class PatientCacheDataset(PatientDatasetInit, CacheDataset):
             imaging=imaging,
             concept_id=concept_id,
             ignore_values=ignore_values,
-            return_patient_id=return_patient_id,
             octa_enface_imaging=octa_enface_imaging,
             cache_rate=cache_rate,
             transform=transform,
@@ -582,7 +566,7 @@ class PatientFastAccessDataset(PatientDatasetInit, IterableDataset):
         cache_rate=0.2,
         ignore_values=[777, 999, 555, 888],
         transform=None,
-        return_patient_id=False,
+        shuffle=True,
         **kwargs,
     ):
         """
@@ -601,7 +585,7 @@ class PatientFastAccessDataset(PatientDatasetInit, IterableDataset):
             cache_rate (float): Percentage of dataset to hold in cache. Default is 0.2.
             ignore_values (list): A list of `source_value` values to ignore during filtering. Default is [777, 999].
             transform (callable, optional): A PyTorch-compatible transform to apply on individual samples. Default is None.
-            return_patient_id (bool): If True, returns the patient ID along with the data. Default is False.
+            shuffle (bool): Whether or not to shuffle volumes and enable random slice sampling.
             **kwargs: Additional arguments to be stored as attributes of the class.
 
         Attributes:
@@ -620,13 +604,14 @@ class PatientFastAccessDataset(PatientDatasetInit, IterableDataset):
             ignore_values=ignore_values,
             transform=transform,
         )
-
+        self.shuffle = shuffle
         self.cache_rate = cache_rate
         self.slice_cache = {}
         self.total_slice_cache_size = int(len(self.visits_dict_slice) * cache_rate)
         print(f'Cache size: {self.total_slice_cache_size} slices')
         self.main_volume_list = list(self.visits_dict.keys())
-        random.shuffle(self.main_volume_list)
+        if self.shuffle:
+            random.shuffle(self.main_volume_list)
 
     def __len__(self):
         """
@@ -648,7 +633,7 @@ class PatientFastAccessDataset(PatientDatasetInit, IterableDataset):
             while (len(self.slice_cache) < self.worker_slice_cache_size) and (
                 len(self.worker_vol_list) > 0
             ):
-                vol_idx = self.worker_vol_list.pop()
+                vol_idx = self.worker_vol_list.pop(0)
                 data_path = self.visits_dict[vol_idx]["frames"]
                 dicom_file = pydicom.dcmread(data_path)
                 num_slices = dicom_file.pixel_array.shape[0]
@@ -656,13 +641,18 @@ class PatientFastAccessDataset(PatientDatasetInit, IterableDataset):
                 for i in range(num_slices):
                     self.slice_cache[(vol_idx, i)] = dicom_file.pixel_array[i].copy()
             # retrieve random slice from cache
-            slice_idx = random.choice(list(self.slice_cache.keys()))
+            if self.shuffle:
+                slice_idx = random.choice(list(self.slice_cache.keys()))
+            else:
+                slice_idx =  list(self.slice_cache.keys())[0] #first one from ordered dict
             frame = self.slice_cache.pop(slice_idx)
+
             data_dict = self.visits_dict[slice_idx[0]].copy()
 
             frame = np.stack([frame] * 3, axis=0)  # To RGB [C,H, W]
             frame = np.asarray(frame, dtype=float)
             data_dict["frames"] = frame
+            data_dict["index"] = slice_idx
             
             data_dict = self.transform(data_dict)
 
@@ -684,4 +674,5 @@ class PatientFastAccessDataset(PatientDatasetInit, IterableDataset):
             self.worker_vol_list = vol_idxs[start:end].copy()
             self.worker_slice_cache_size = self.total_slice_cache_size // num_workers
 
-        random.shuffle(self.worker_vol_list)
+        if self.shuffle:
+            random.shuffle(self.worker_vol_list)

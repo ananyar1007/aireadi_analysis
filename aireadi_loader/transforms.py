@@ -53,14 +53,6 @@ class ToFloat(MapTransform):
         return data_dict
 
 
-class FilterFramesLabel(MapTransform):
-    def __call__(self, data_dict):
-        ndd = dict()
-        ndd["frames"] = data_dict["frames"]
-        ndd["label"] = data_dict["label"]
-        return ndd
-
-
 class ToRGB(MapTransform):
     def __call__(self, data_dict):
         frame = data_dict["frames"]
