@@ -89,6 +89,8 @@ You can find the corresponding `concept_id` for your variable of interest in the
 
 For example, to predict HbA1c, search for `"Hba1c"` in the table — the `TARGET_CONCEPT_ID` will be `3004410`.
 
+**Please make sure you understand your prediction target** — is it a classification (e.g., normal vs. abnormal, or multiclass) or a regression task (e.g., predicting a continuous value like HbA1c level)? This will affect how you configure nb_classes and choose the appropriate loss function.
+
 
 ### Step 2: Select Imaging Conditions
 
@@ -100,24 +102,15 @@ Choose the imaging condition(s) you want to train on, such as:
 
 Valid combinations can be found in the [AIREADI Dataloader Access Table](https://github.com/uw-biomedical-ml/AIREADI_dataloader/blob/main_merged_bug/dataloader_access_table.csv).
 
+For an overview and available images, please refer to the following link: 
+- [OCT](https://docs.aireadi.org/docs/1/dataset/retinal-oct/)
+- [OCTA](https://docs.aireadi.org/docs/1/dataset/retinal-octa/)
+- [CFP/IR](https://docs.aireadi.org/docs/1/dataset/retinal-photography/)
+
 
 ### Step 3: Define Transformations
 
-This dataloader uses a dictionary-based transformation pipeline compatible with [MONAI](https://monai.io/), where inputs are expected in the form of a dictionary (e.g., `{"frames": ..., "label": ...}`). MONAI's `Compose` and dictionary-style transforms (like `Resized`, `RandRotated`, etc.) are used to apply preprocessing consistently across multimodal or sequence-based data.
-
-> **Note on `track_meta=False` in `ToTensord`**
-
-The transform `ToTensord` includes `track_meta=False` to disable MONAI's metadata tracking. This dataloader is designed to simply return image–label pairs without relying on metadata.
-This is **important for performance and compatibility**:
-- If `track_meta=True` (default), MONAI attaches metadata to tensors. While useful in some medical imaging workflows, this metadata is not needed in our case and can introduce unnecessary complexity.
-- Setting `track_meta=False` ensures that the output is a plain PyTorch tensor, which simplifies batching, improves memory efficiency, and avoids potential issues when saving models or using non-MONAI pipelines.
-
-Make sure to include this flag in your transform pipeline when using `ToTensord`.
-
->  **Note on 'FilterFramesLabel(keys=["frames", "label"])**
-
-This is a custom transform used to filter out samples that do not meet specific criteria.
-
+This dataloader uses a dictionary-based transformation pipeline compatible with [MONAI](https://monai.io/), where inputs are expected in the form of a dictionary (e.g., `{"frames": ..., "label": ...}`). MONAI's `Compose` and dictionary-style transforms (like `Resized`, `RandRotated`, etc.) are used to apply preprocessing consistently across multimodal or sequence-based data. By default, the `ToTensord` transform is applied after any user-defined transforms.
 
 #### Example Transform (for Training)
 
@@ -129,15 +122,12 @@ train_transform = Compose([
         mode="bilinear",
     ),
     ScaleIntensityd(keys=["frames"]),
-    ToTensord(keys=["frames", "label"], track_meta=False),
     RandRotated(
         keys=["frames"],
         range_x=(-0.17, 0.17),
         prob=0.5,
         mode="bilinear",
     ),
-    FilterFramesLabel(keys=["frames", "label"]),
-    ToFloat(keys=["frames"]),
 ])
 ```
 
@@ -145,6 +135,12 @@ train_transform = Compose([
 
 Use the `build_dataset()` function defined in `build_dataset.py` to construct your dataset.  
 You will need to set a few required parameters — see the [Key Parameters](#key-parameters) section for details.
+
+**Note:**
+The AI-READI dataset comes with a predetermined train/validation/test split to support reproducible research and fair benchmarking. Below is the breakdown of the number of patients in each split by demographic categories such as sex, race, and diabetes status.
+
+**Note:** `shuffle=True` has no effect when using `PatientFastAccessDataset`, which inherits from PyTorch's `IterableDataset`.
+
 
 Example:
 
@@ -158,8 +154,6 @@ train_loader = DataLoader(train_dataset, batch_size=8, shuffle=True, num_workers
 test_dataset = build_dataset(is_train=False, args=args)
 test_loader = DataLoader(test_dataset, batch_size=8, shuffle=False, num_workers=4)
 ```
-
-**Note:** `shuffle=True` has no effect when using `PatientFastAccessDataset`, which inherits from PyTorch's `IterableDataset`.
 
 
 

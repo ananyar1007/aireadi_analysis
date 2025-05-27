@@ -9,11 +9,12 @@
 from monai.transforms.transform import MapTransform
 
 from .datasets import *
+from copy import deepcopy
 
 
 class CenterSlice_Volume(MapTransform):
     def __call__(self, data_dict):
-        volume = data_dict["frames"]
+        volume = deepcopy(data_dict["frames"])
         num_frames = volume.shape[0]
         middle_index = (num_frames // 2) - 1 if num_frames % 2 == 0 else num_frames // 2
         data_dict["frames"] = volume[middle_index]
@@ -26,6 +27,7 @@ class GetLabel(MapTransform):
         super().__init__(**kwargs)
 
     def __call__(self, data_dict):
+        data_dict = deepcopy(data_dict)
         if self.concept_id > 0:
             data_dict["label"] = float(data_dict["source_values"][0])
         elif self.concept_id < 0:
@@ -43,8 +45,10 @@ class GetLabel(MapTransform):
             data_dict["label"] = int(data_dict["class_idx"])
         return data_dict
 
+
 class ToFloat(MapTransform):
     def __call__(self, data_dict):
+        data_dict = deepcopy(data_dict)
         data_dict["frames"] = data_dict["frames"].to(torch.float)
         return data_dict
 
@@ -57,7 +61,6 @@ class FilterFramesLabel(MapTransform):
         return ndd
 
 
-
 class ToRGB(MapTransform):
     def __call__(self, data_dict):
         frame = data_dict["frames"]
@@ -68,7 +71,7 @@ class ToRGB(MapTransform):
 
 class SliceVolume(MapTransform):
     def __call__(self, data_dict):
+        data_dict = deepcopy(data_dict)
         idx = data_dict["slice_index"]
         data_dict["frames"] = data_dict["frames"][idx, :, :]
         return data_dict
-

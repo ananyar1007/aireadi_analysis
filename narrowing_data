@@ -1,0 +1,196 @@
+Manufacturer: Heidelberg
+Model: Spectralis
+Imaging: OCT
+octa_enface_imaging: None
+Unique Anatomic Regions: ['Optic Disc', 'Macula']
+Count: 4028
+----------------------------------------
+Manufacturer: Topcon
+Model: Maestro2
+Imaging: OCT
+octa_enface_imaging: None
+Unique Anatomic Regions: ['Macula', 'Wide Field', 'Macula, 6 x 6']
+Count: 6444
+----------------------------------------
+Manufacturer: Topcon
+Model: Triton
+Imaging: OCT
+octa_enface_imaging: None
+Unique Anatomic Regions: ['Macula, 12 x 12', 'Macula, 6 x 6', 'Optic Disc']
+Count: 6554
+----------------------------------------
+Manufacturer: Zeiss
+Model: Cirrus
+Imaging: OCT
+octa_enface_imaging: None
+Unique Anatomic Regions: ['Optic Disc, 6 x 6', 'Optic Disc', 'Macula', 'Macula, 6 x 6']
+Count: 8705
+----------------------------------------
+Manufacturer: Topcon
+Model: Maestro2
+Imaging: OCTA
+octa_enface_imaging: None
+Unique Anatomic Regions: ['Macula, 6 x 6']
+Count: 2121
+----------------------------------------
+Manufacturer: Topcon
+Model: Maestro2
+Imaging: OCTA
+octa_enface_imaging: superficial
+Unique Anatomic Regions: ['Macula, 6 x 6']
+Count: 2121
+----------------------------------------
+Manufacturer: Topcon
+Model: Maestro2
+Imaging: OCTA
+octa_enface_imaging: deep
+Unique Anatomic Regions: ['Macula, 6 x 6']
+Count: 2121
+----------------------------------------
+Manufacturer: Topcon
+Model: Maestro2
+Imaging: OCTA
+octa_enface_imaging: outer_retina
+Unique Anatomic Regions: ['Macula, 6 x 6']
+Count: 2121
+----------------------------------------
+Manufacturer: Topcon
+Model: Maestro2
+Imaging: OCTA
+octa_enface_imaging: choriocapillaris
+Unique Anatomic Regions: ['Macula, 6 x 6']
+Count: 2121
+----------------------------------------
+Manufacturer: Topcon
+Model: Triton
+Imaging: OCTA
+octa_enface_imaging: None
+Unique Anatomic Regions: ['Macula, 12 x 12', 'Macula, 6 x 6']
+Count: 4274
+----------------------------------------
+Manufacturer: Topcon
+Model: Triton
+Imaging: OCTA
+octa_enface_imaging: superficial
+Unique Anatomic Regions: ['Macula, 12 x 12', 'Macula, 6 x 6']
+Count: 4274
+----------------------------------------
+Manufacturer: Topcon
+Model: Triton
+Imaging: OCTA
+octa_enface_imaging: deep
+Unique Anatomic Regions: ['Macula, 12 x 12', 'Macula, 6 x 6']
+Count: 4274
+----------------------------------------
+Manufacturer: Topcon
+Model: Triton
+Imaging: OCTA
+octa_enface_imaging: outer_retina
+Unique Anatomic Regions: ['Macula, 12 x 12', 'Macula, 6 x 6']
+Count: 4274
+----------------------------------------
+Manufacturer: Topcon
+Model: Triton
+Imaging: OCTA
+octa_enface_imaging: choriocapillaris
+Unique Anatomic Regions: ['Macula, 12 x 12', 'Macula, 6 x 6']
+Count: 4274
+----------------------------------------
+Manufacturer: Zeiss
+Model: Cirrus
+Imaging: OCTA
+octa_enface_imaging: None
+Unique Anatomic Regions: ['Optic Disc, 6 x 6', 'Macula, 6 x 6']
+Count: 4101
+----------------------------------------
+Manufacturer: Zeiss
+Model: Cirrus
+Imaging: OCTA
+octa_enface_imaging: superficial
+Unique Anatomic Regions: ['Optic Disc, 6 x 6', 'Macula, 6 x 6']
+Count: 4101
+----------------------------------------
+Manufacturer: Zeiss
+Model: Cirrus
+Imaging: OCTA
+octa_enface_imaging: deep
+Unique Anatomic Regions: ['Optic Disc, 6 x 6', 'Macula, 6 x 6']
+Count: 4101
+----------------------------------------
+Manufacturer: Zeiss
+Model: Cirrus
+Imaging: OCTA
+octa_enface_imaging: outer_retina
+Unique Anatomic Regions: ['Optic Disc, 6 x 6', 'Macula, 6 x 6']
+Count: 4101
+----------------------------------------
+Manufacturer: Zeiss
+Model: Cirrus
+Imaging: OCTA
+octa_enface_imaging: choriocapillaris
+Unique Anatomic Regions: ['Optic Disc, 6 x 6', 'Macula, 6 x 6']
+Count: 4101
+----------------------------------------
+Manufacturer: Heidelberg
+Model: Spectralis
+Imaging: Infrared Reflectance
+octa_enface_imaging: None
+Unique Anatomic Regions: ['Optic Disc', 'Macula']
+Count: 4112
+----------------------------------------
+Manufacturer: Optomed
+Model: Aurora
+Imaging: Color Photography
+octa_enface_imaging: None
+Unique Anatomic Regions: ['Macula or Optic Disc']
+Count: 4792
+----------------------------------------
+Manufacturer: Topcon
+Model: Maestro2
+Imaging: Color Photography
+octa_enface_imaging: None
+Unique Anatomic Regions: ['Macula', 'Wide Field']
+Count: 4317
+----------------------------------------
+Manufacturer: Topcon
+Model: Maestro2
+Imaging: Infrared Reflectance
+octa_enface_imaging: None
+Unique Anatomic Regions: ['Macula, 6 x 6']
+Count: 2118
+----------------------------------------
+Manufacturer: Topcon
+Model: Triton
+Imaging: Color Photography
+octa_enface_imaging: None
+Unique Anatomic Regions: ['Macula, 12 x 12', 'Macula, 6 x 6', 'Optic Disc']
+Count: 6523
+----------------------------------------
+Manufacturer: Zeiss
+Model: Cirrus
+Imaging: Infrared Reflectance
+octa_enface_imaging: None
+Unique Anatomic Regions: ['Optic Disc', 'Macula']
+Count: 8705
+----------------------------------------
+Manufacturer: iCare
+Model: Eidon
+Imaging: Autofluorescence
+octa_enface_imaging: None
+Unique Anatomic Regions: ['Macula']
+Count: 2295
+----------------------------------------
+Manufacturer: iCare
+Model: Eidon
+Imaging: Color Photography
+octa_enface_imaging: None
+Unique Anatomic Regions: ['Mosaic', 'Macula', 'Nasal', 'Temporal Periphery']
+Count: 8285
+----------------------------------------
+Manufacturer: iCare
+Model: Eidon
+Imaging: Infrared Reflectance
+octa_enface_imaging: None
+Unique Anatomic Regions: ['Macula']
+Count: 2273
+----------------------------------------
