@@ -232,11 +232,6 @@ class PatientDatasetInit:
         self.used_aireadi_patient_list = sorted(
             list(self.used_aireadi_patient_dict.keys())
         )
-        # print(
-        #     "patient_list:",
-        #     self.used_aireadi_patient_list,
-        #     len(self.used_aireadi_patient_list),
-        # )
 
         self.concept_table = load_ai_readi_clinical_data(self.root_dir)
         if self.concept_table.empty:
@@ -292,7 +287,6 @@ class PatientDatasetInit:
         elif self.imaging == "oct" or self.imaging == "octa":
             if self.mode == "slice":
                 # Extend the Volume-Level Dictionary to Slice-Level
-                # Must be a dict to appease utils.py 191
                 self.make_visits_dict_slice()
                 if cache_rate is not None:
                     loadtransform = []
@@ -371,11 +365,13 @@ class PatientDatasetInit:
                 GetLabel(keys=["label"], concept_id=self.concept_id),
                 *transform.transforms,
                 ToTensord(
-                    keys=["frames", "label"], track_meta=False, dtype=torch.float32, 
+                    keys=["frames", "label"],
+                    track_meta=False,
+                    dtype=torch.float32,
                 ),  # Convert image and label to tensor
                 SelectItemsd(keys=["frames", "label","index"],allow_missing_keys=True),
             ]
-        )  # Convert image and label to tensor])
+        )
         return self
 
     def check_source_value_types(self):
