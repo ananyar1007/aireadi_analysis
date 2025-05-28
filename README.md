@@ -46,6 +46,7 @@ This guide walks you through setting up a Python environment and installing the 
     ```sh
     git clone https://github.com/uw-biomedical-ml/aireadi_loader.git 
     cd aireadi_loader
+    pip install aireadi-loader
     ```
 
 3. **Install remaining dependencies:**
