@@ -32,6 +32,7 @@ We strongly recommend using the [`build_dataset.py`](./examples/build_dataset.py
 
 # 🔧 Installation
 
+This guide walks you through setting up a Python environment and installing the `aireadi-loader` package along with its dependencies.
 
 1. **Create environment:**
 
@@ -40,23 +41,17 @@ We strongly recommend using the [`build_dataset.py`](./examples/build_dataset.py
     conda activate aireadi
     ```
 
-2. **Clone repo:**
+2. **Install `aireadi-loader`:**
 
     ```sh
     git clone https://github.com/uw-biomedical-ml/aireadi_loader.git 
     cd aireadi_loader
     ```
 
-3. **Install PyTorch + CUDA:**
+3. **Install remaining dependencies:**
 
     ```sh
-    pip install torch==2.1.0 torchvision==0.16.0 torchaudio==2.1.0 --index-url https://download.pytorch.org/whl/cu118
-    ```
-
-4. **Install remaining dependencies:**
-
-    ```sh
-    pip install -r requirements_no_torch_python_3_10.txt
+    pip install -r requirements.txt
     ```
 
 
@@ -66,9 +61,9 @@ We strongly recommend using the [`build_dataset.py`](./examples/build_dataset.py
   (Installation has **not been tested** on Windows or macOS.)
 - Make sure you have a **CUDA-compatible GPU** and the correct **NVIDIA drivers** installed for GPU acceleration.
 - Tested with:
-  - **Python 3.10**
-  - **CUDA 11.8**
-  - **PyTorch 2.1**
+  - **Python 3.10 or 3.11**
+  - **CUDA 11.8 or 12.1**
+
 
 >🛠️ If you're using Windows, WSL2 with Ubuntu may work, but we recommend Linux for best compatibility and performance.
 
