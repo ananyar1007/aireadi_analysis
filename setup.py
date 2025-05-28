@@ -5,8 +5,8 @@ this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text()
 
 setup(
-    name='aireadi_loader',
-    version='0.1.0',
+    name='aireadiloader',
+    version='0.1.3',
     author='Yuka Kihara et al.',
     author_email='yk73@uw.edu',
     description='Dataloader for the AIREADI dataset.',
@@ -21,11 +21,11 @@ setup(
         'tqdm',
         'pydicom>=3.0.0',
         'pandas>=2.2.2',
-        'monai==1.3.2',
+        'monai>=1.3.0',
     ],
     classifiers=[
         'Programming Language :: Python :: 3',
-        'License :: OSI Approved :: BSD 2-Clause',
+        'License :: OSI Approved :: BSD License',
     ],
-    python_requires='==3.10',
+    python_requires='>=3.10, <3.12',
 )

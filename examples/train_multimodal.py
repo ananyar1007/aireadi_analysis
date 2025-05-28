@@ -658,13 +658,13 @@ def main(args):
         dataset_train,
         batch_size=args.batch_size,
         num_workers=args.num_workers,
-        drop_last=True,
+        shuffle=True,
     )
     data_loader_val = DataLoader(
         dataset_val,
         batch_size=args.val_batch_size,
         num_workers=args.num_workers,
-        drop_last=False,
+        shuffle=False,
     )
 
 

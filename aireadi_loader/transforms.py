@@ -10,6 +10,7 @@ from monai.transforms.transform import MapTransform
 
 from .datasets import *
 from copy import deepcopy
+import torch
 
 
 class CenterSlice_Volume(MapTransform):

@@ -530,7 +530,7 @@ def main(args):
         dataset_val,
         batch_size=args.val_batch_size,
         num_workers=args.num_workers,
-        #shuffle=False,
+        shuffle=False,
     )
 
     # Initialize EfficientNet-B0 model
