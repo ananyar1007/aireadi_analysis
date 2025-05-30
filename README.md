@@ -50,7 +50,7 @@ This guide walks you through setting up a Python environment and installing the 
 3. **Install remaining dependencies and example training code:**
 
     ```sh
-    https://github.com/AI-READI/aireadi_loader.git
+    git clone https://github.com/AI-READI/aireadi_loader.git
     cd aireadi_loader    
     pip install -r requirements.txt
     ```
