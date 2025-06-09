@@ -21,7 +21,7 @@ Each dataset returns a dictionary per sample with the following keys:
 - `data_dict["frames"]`: the imaging data (2D or 3D tensor depending on settings)
 - `data_dict["label"]`: the ground truth label associated with the sample
 
-We strongly recommend using the [`build_dataset.py`](./examples/build_dataset.py) script to construct datasets, as it encapsulates essential logic for transformation, caching, and configuration.
+We strongly recommend relying on the [`build_dataset.py`](./examples/build_dataset.py) script to construct datasets, as it encapsulates essential logic for transformation, caching, and configuration.
 
 ### Key Features:  
 - **Concept ID-based Data Loading**: Loads data with respect to a specific clinical observation or measurement, which is coded as a clinical concept ID.  
