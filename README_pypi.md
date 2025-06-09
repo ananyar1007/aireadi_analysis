@@ -18,8 +18,6 @@ Each dataset returns a dictionary per sample with the following keys:
 - `data_dict["frames"]`: the imaging data (2D or 3D tensor depending on settings)
 - `data_dict["label"]`: the ground truth label associated with the sample
 
-We strongly recommend relying on the [`build_dataset.py`](./examples/build_dataset.py) script to construct datasets, as it encapsulates essential logic for transformation, caching, and configuration.
-
 ### Key Features:  
 - **Concept ID-based Data Loading**: Loads data with respect to a specific clinical observation or measurement, which is coded as a clinical concept ID.  
 - **Easy Image-Target Pairing**: Facilitates seamless loading of image and target pairs via the dataloader, making it convenient for model training.  
@@ -127,7 +125,6 @@ train_transform = Compose([
 ### Step 4: Build the Dataset
 
 Use the `build_dataset()` function defined in `build_dataset.py` to construct your dataset.  
-You will need to set a few required parameters — see the [Key Parameters](#key-parameters) section for details.
 
 **Note:**
 The AI-READI dataset comes with a predetermined train/validation/test split to support reproducible research and fair benchmarking. Below is the breakdown of the number of patients in each split by demographic categories such as sex, race, and diabetes status.
@@ -173,8 +170,4 @@ Each script shows how to:
 - Initialize the dataset and dataloader with selected modalitie(s)
 - Iterate through singlemodal/multimodal batches
 
-Refer to the example training scripts for full workflows:
-
-- [`train_2d.py`](./examples/train_2d.py) for 2D model training
-- [`train_3d.py`](./examples/train_3d.py) for 3D model training
-- [`train_multimodal.py`](./examples/train_multimodal.py) for multimodal model training
+Refer to the example training scripts for full workflows. 
