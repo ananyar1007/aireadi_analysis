@@ -27,7 +27,7 @@ from sklearn.metrics import (
 )
 from sklearn.preprocessing import label_binarize
 import psutil
-
+import pandas as pd
 
 import torch
 import torch.nn as nn
@@ -36,11 +36,13 @@ import torch.nn.functional as F
 import torchvision.models as models
 from torch.utils.tensorboard import SummaryWriter
 from torch.utils.data import IterableDataset
-from monai.data import DataLoader
+from torch.utils.data import DataLoader
 from monai.utils import set_determinism
+from torchvision import transforms
 
 from examples.build_dataset import build_dataset
-
+from aireadi_loader.simpledatasets import AIReadiDataset
+from models.model import EfficientNetB0Classifier, DinoTransformer
 
 def get_process_memory_usage(pid):
     """Returns the memory usage (RSS) of a process in megabytes."""
@@ -67,24 +69,6 @@ def get_process_tree_memory_usage(pid):
         pass  # process already finished.
     return total_memory
 
-
-# Define EfficientNetB0 with Global Average Pooling
-class EfficientNetB0Classifier(nn.Module):
-    def __init__(self, num_classes):
-        super().__init__()
-        self.model = models.efficientnet_b0()
-        self.model.features[-1][0].stride = (1, 1)  # Adjust last layer stride
-        self.gap = nn.AdaptiveAvgPool2d(1)  # Global Average Pooling
-        self.fc = nn.Linear(
-            1280, num_classes
-        )  # 1280 is the feature size in EfficientNetB0
-
-    def forward(self, x):
-        x = self.model.features(x)
-        x = self.gap(x)
-        x = torch.flatten(x, 1)
-        x = self.fc(x)
-        return x
 
 
 class FocalLoss(nn.Module):
@@ -145,10 +129,9 @@ def train_one_epoch(model, dataloader, optimizer, loss_fn, device):
     for data_iter_step, batch in enumerate(tqdm(dataloader)):
 
         images, labels = (
-            batch["frames"].to(device),
-            batch["label"].to(device).long(),
+            batch["img"].to(device),
+            batch["labels"].to(device).long(),
         )
-
         optimizer.zero_grad()
         outputs = model(images)
         loss = loss_fn(outputs, labels)
@@ -157,7 +140,11 @@ def train_one_epoch(model, dataloader, optimizer, loss_fn, device):
 
         running_loss += loss.item() * images.size(0)
         _, predicted = torch.max(outputs, 1)
+        predicted = torch.reshape(predicted, labels.size())
+        X = predicted==labels
         correct += (predicted == labels).sum().item()
+       
+    
         total += labels.size(0)
         # profiler.step()
 
@@ -165,7 +152,7 @@ def train_one_epoch(model, dataloader, optimizer, loss_fn, device):
 
 
 # Validation function with additional metrics
-def validate(model, dataloader, loss_fn, device):
+def validate(model, dataloader, loss_fn, device, epoch):
     model.eval()
     val_loss = 0.0
     all_labels = []
@@ -176,8 +163,8 @@ def validate(model, dataloader, loss_fn, device):
         for data_iter_step, batch in enumerate(tqdm(dataloader)):
 
             images, labels = (
-                batch["frames"].to(device),
-                batch["label"].to(device).long(),
+                batch["img"].to(device),
+                batch["labels"].to(device).long(),
             )
 
             outputs = model(images)
@@ -193,8 +180,10 @@ def validate(model, dataloader, loss_fn, device):
     all_labels = np.array(all_labels)
     all_preds = np.array(all_preds)
     all_probs = np.concatenate(all_probs, axis=0)
-
+    
     n_classes = all_probs.shape[1]
+    all_labels = np.array(all_labels).astype(int)
+    all_preds = np.array(all_preds).astype(int)
     precision = precision_score(all_labels, all_preds, average='macro', zero_division=0)
     f1 = f1_score(all_labels, all_preds, average='macro')
     bal_acc = balanced_accuracy_score(all_labels, all_preds)
@@ -229,7 +218,8 @@ def validate(model, dataloader, loss_fn, device):
         'AUC-PR': auc_pr,
         'Balanced Accuracy': bal_acc,
         'F1 Score': f1,
-        'MCC': mcc
+        'MCC': mcc,
+        'Epoch': epoch
     }
     return metrics
 
@@ -402,16 +392,40 @@ def get_args_parser():
     # Evaluation mode
     parser.add_argument("--eval", action="store_true", help="Run evaluation only")
 
+    #label
+    parser.add_argument(
+        "--label", default="mhoccur_ca, Cancer (any type)", help="label to predict"
+    )
+
+    parser.add_argument(
+        "--dataset_config_path", default="/path/to/data/", type=str, help="Dataset path"
+    )
+
+    parser.add_argument(
+        "--img_dir", default="/path/to/data/", type=str, help="Dataset path"
+    )
+
+    parser.add_argument( "--img_type", default="cfp",type=str, help = "image modality")
     args = parser.parse_args()
 
     return parser
 
+def write_logging_results(file_path, metrics):
+    if os.path.exists(file_path):
+        df1 = pd.read_csv(file_path, index_col=0) 
+        df2 = pd.DataFrame(metrics, index = [metrics["Epoch"]]) 
+        df3 = pd.concat([df1, df2], axis=0)  
+        df3.to_csv(file_path)
+    else:
+        df = pd.DataFrame(metrics, index=[metrics["Epoch"]])
+        df.to_csv(file_path)
 
 # Training loop with model saving (Classification)
 def train(
     model,
     train_loader,
     val_loader,
+    test_loader,
     optimizer,
     loss_fn,
     device,
@@ -420,16 +434,34 @@ def train(
 ):
     best_val_loss = float("inf")
     writer = SummaryWriter(args.log_dir)
+    
+    
+
+    train_file_path = save_path+"//train_result.csv"
+    val_file_path = save_path+"//val_result.csv"
+    test_file_path = save_path+"//test_result.csv"
 
     for epoch in range(epochs):
+  
         train_loss, train_acc = train_one_epoch(
             model, train_loader, optimizer, loss_fn, device)
-        val_metrics = validate(model, val_loader, loss_fn, device)
+        train_metrics = {"Epoch": epoch +1, "Train Loss": train_loss, "Train Acc": train_acc}
+        val_metrics = validate(model, val_loader, loss_fn, device, epoch+1)
+        
+        test_metrics = validate(model, test_loader, loss_fn, device, epoch+1)
+        write_logging_results(train_file_path, train_metrics)
+        write_logging_results(val_file_path, val_metrics)
+        write_logging_results(test_file_path, test_metrics)
 
+        writer.add_scalar("test/loss", test_metrics["Loss"], epoch+1)
+        writer.add_scalar("test/acc", test_metrics["Accuracy"], epoch+1)
+        writer.add_scalar("test/auroc", test_metrics["AUC-ROC"], epoch+1)
         writer.add_scalar("val/loss", val_metrics["Loss"], epoch + 1)
         writer.add_scalar("val/acc", val_metrics["Accuracy"], epoch + 1)
+        writer.add_scalar("val/auroc", val_metrics["AUC-ROC"], epoch+1) 
         writer.add_scalar("train/loss", train_loss, epoch + 1)
         writer.add_scalar("train/acc", train_acc, epoch + 1)
+        
 
         main_pid = os.getpid()  # Get the PID of the main process
         total_memory_used = get_process_tree_memory_usage(main_pid)
@@ -437,7 +469,14 @@ def train(
 
         print(f"Epoch {epoch+1}/{epochs}")
         print(f"Train Loss: {train_loss:.4f}, Train Acc: {train_acc:.4f}")
+        print("VAL!")
         for key, value in val_metrics.items():
+            if value is not None:
+                print(f"{key}: {value:.4f}")
+            else:
+                print(f"{key}: N/A") # multiclass doesn't calculate specificity
+        print("TEST!")
+        for key, value in test_metrics.items():
             if value is not None:
                 print(f"{key}: {value:.4f}")
             else:
@@ -446,9 +485,9 @@ def train(
         if val_metrics["Loss"] < best_val_loss:
             best_val_loss = val_metrics["Loss"]
             if torch.cuda.device_count() > 1:
-                torch.save(model.module.state_dict(), save_path)  # for DataParallel
+                torch.save(model.module.state_dict(), save_path+"//best_model.pth")  # for DataParallel
             else:
-                torch.save(model.state_dict(), save_path)
+                torch.save(model.state_dict(), save_path + "//best_model.pth")
             print("Model saved with improved validation loss.")
 
 
@@ -457,6 +496,7 @@ def train_reg(
     model,
     train_loader,
     val_loader,
+    test_loader,
     optimizer,
     loss_fn,
     device,
@@ -469,6 +509,7 @@ def train_reg(
     for epoch in range(epochs):
         train_loss, train_mae, train_r2 = train_one_epoch_reg(model, train_loader, optimizer, loss_fn, device)
         val_metrics = validate_reg(model, val_loader, loss_fn, device)
+        test_metrics = validate_reg(model, test_loader, loss_fn, device)
 
         writer.add_scalar("val/loss", val_metrics["Loss"], epoch + 1)
         writer.add_scalar("val/mae", val_metrics["MAE"], epoch + 1)
@@ -490,13 +531,18 @@ def train_reg(
                 print(f"{key}: {value:.4f}")
             else:
                 print(f"{key}: N/A") # multiclass doesn't calculate specificity
+        for key, value in test_metrics.items():
+            if value is not None:
+                print(f"{key}: {value:.4f}")
+            else:
+                print(f"{key}: N/A") # multiclass doesn't calculate specificity
 
         if val_metrics["Loss"] < best_val_loss:
             best_val_loss = val_metrics["Loss"]
             if torch.cuda.device_count() > 1:
-                torch.save(model.module.state_dict(), save_path)  # for DataParallel
+                torch.save(model.module.state_dict(), save_path+"//best_model.pth")  # for DataParallel
             else:
-                torch.save(model.state_dict(), save_path)
+                torch.save(model.state_dict(), save_path+"//best_model.pth")
             print("Model saved with improved validation loss.")
 
 
@@ -513,9 +559,42 @@ def main(args):
     device = torch.device(args.device)
 
     # Load the datasets
-    dataset_train = build_dataset(is_train=True, args=args)
-    dataset_val = build_dataset(is_train=False, args=args)
+    df = pd.read_csv(args.dataset_config_path)
+    imgpath = args.img_dir
+    if args.img_type == "ir":
+        transform_train = transforms.Compose([
+        transforms.Grayscale(num_output_channels=3),
+        transforms.RandomRotation(degrees=15),  
+        transforms.RandomCrop(size=224), # Convert to 3-channel RGB
+        transforms.ToTensor()   
+                            # Convert to tensor [0,1]
+    ])  
+        transform_test= transforms.Compose([
+        transforms.Grayscale(num_output_channels=3),
+        transforms.CenterCrop(size=224),       # Adjust size as needed
+        transforms.ToTensor()
+    ])
 
+    if args.img_type == "cfp":
+        transform_train = transforms.Compose([
+        transforms.RandomRotation(degrees=15),  
+        transforms.RandomCrop(size=224), # Convert to 3-channel RGB
+        transforms.ToTensor()   
+                            # Convert to tensor [0,1]
+    ])  
+        transform_test= transforms.Compose([
+        transforms.CenterCrop(size=224),       # Adjust size as needed
+        transforms.ToTensor()
+    ])
+
+
+    dataset_train = AIReadiDataset(df = df, img_path = imgpath, img_type = args.img_type, split="train", transform = transform_train, label=args.label)
+    dataset_val = AIReadiDataset(df = df, img_path = imgpath, img_type = args.img_type, split="val", transform = transform_test, label=args.label)
+    dataset_test = AIReadiDataset(df = df, img_path = imgpath, img_type = args.img_type, split="test", transform = transform_test, label=args.label)
+#    dataset_train = build_dataset(split="train", args=args)
+   # dataset_val = build_dataset(split="val", args=args)
+  #  dataset_test = build_dataset(split="test", args=args)
+    print(len(dataset_train),len(dataset_val), len(dataset_test))
     is_iterable_dataset = isinstance(dataset_train, IterableDataset)
     dataloader_shuffle = False if is_iterable_dataset else True
 
@@ -532,9 +611,14 @@ def main(args):
         num_workers=args.num_workers,
         shuffle=False,
     )
-
+    data_loader_test = DataLoader(
+        dataset_test,
+        batch_size=args.val_batch_size,
+        num_workers=args.num_workers,
+        shuffle=False,
+    )
     # Initialize EfficientNet-B0 model
-    model = EfficientNetB0Classifier(args.nb_classes).to(device)
+    model = DinoTransformer().to(device)
     if torch.cuda.device_count() > 1:
         print(f"Using {torch.cuda.device_count()} GPUs!")
         model = nn.DataParallel(model)
@@ -546,7 +630,8 @@ def main(args):
     # Replace with actual dataloaders
     train_loader = data_loader_train
     val_loader = data_loader_val
-    save_path = os.path.join(args.output_dir, "best_model.pth")
+    test_loader = data_loader_test
+    save_path = args.output_dir
 
     if args.nb_classes > 1:
         criterion = FocalLoss(gamma=2.0)
@@ -554,6 +639,7 @@ def main(args):
             model,
             train_loader,
             val_loader,
+            test_loader,
             optimizer,
             criterion,
             device,
@@ -566,6 +652,7 @@ def main(args):
             model,
             train_loader,
             val_loader,
+            test_loader,
             optimizer,
             criterion,
             device,
