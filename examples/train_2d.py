@@ -5,12 +5,14 @@
 # in the root directory of this source tree.
 # --------------------------------------------------------
 
-import argparse
+from examples.parse_args import get_args_parser
 import numpy as np
 import os
 from tqdm import tqdm
 from typing import Optional
 from pathlib import Path
+import datetime
+import json
 from sklearn.metrics import (
     roc_auc_score,
     average_precision_score,
@@ -41,8 +43,8 @@ from monai.utils import set_determinism
 from torchvision import transforms
 
 from examples.build_dataset import build_dataset
-from aireadi_loader.simpledatasets import AIReadiDataset
-from models.model import EfficientNetB0Classifier, DinoTransformer
+from aireadi_loader.AIREADIdataset import AIReadiDataset
+from models.model import EfficientNetB0Classifier, DinoTransformer, TransformerFusion
 
 def get_process_memory_usage(pid):
     """Returns the memory usage (RSS) of a process in megabytes."""
@@ -119,34 +121,45 @@ class FocalLoss(nn.Module):
             return loss.sum()
         return loss  # If 'none', return per-sample loss
 
+def create_model_input(dct, device):
+    model_input_dct = {}
+    
+    if "cfp" in dct:
+        cfp = dct["cfp"]
+        cfp = [img.to(device) for img in cfp]
+        model_input_dct["cfp"] = cfp
+    if "ir" in dct:
+        ir = dct["ir"]
+        ir = [img.to(device) for img in ir]
+        model_input_dct["ir"] = ir
 
+    if "clinical_meta" in dct:
+        model_input_dct["clinical_meta"] = dct["clinical_meta"].to(device)
+    return model_input_dct 
 # Training function
 def train_one_epoch(model, dataloader, optimizer, loss_fn, device):
     model.train()
     running_loss = 0.0
     correct = 0
     total = 0
-    for data_iter_step, batch in enumerate(tqdm(dataloader)):
+    for data_iter_step, dct in enumerate(tqdm(dataloader)):
 
-        images, labels = (
-            batch["img"].to(device),
-            batch["labels"].to(device).long(),
-        )
+        model_input_dct = create_model_input(dct, device)
         optimizer.zero_grad()
-        outputs = model(images)
+        outputs = model(model_input_dct)
+        labels = dct["labels"].to(device)
+        B = labels.size(0)
         loss = loss_fn(outputs, labels)
         loss.backward()
         optimizer.step()
 
-        running_loss += loss.item() * images.size(0)
+
+        running_loss += loss.item() * B
         _, predicted = torch.max(outputs, 1)
-        predicted = torch.reshape(predicted, labels.size())
-        X = predicted==labels
         correct += (predicted == labels).sum().item()
        
     
         total += labels.size(0)
-        # profiler.step()
 
     return running_loss / total, correct / total
 
@@ -160,16 +173,15 @@ def validate(model, dataloader, loss_fn, device, epoch):
     all_probs = []
 
     with torch.no_grad():
-        for data_iter_step, batch in enumerate(tqdm(dataloader)):
+        for data_iter_step, dct in enumerate(tqdm(dataloader)):
 
-            images, labels = (
-                batch["img"].to(device),
-                batch["labels"].to(device).long(),
-            )
-
-            outputs = model(images)
+            
+            model_input_dct = create_model_input(dct, device)
+            outputs = model(model_input_dct)
+            labels = dct["labels"].to(device)
+            B = labels.size(0)
             loss = loss_fn(outputs, labels)
-            val_loss += loss.item() * images.size(0)
+            val_loss += loss.item() * B
 
             probs = torch.softmax(outputs, dim=1)
             preds = torch.argmax(probs, dim=1)
@@ -182,6 +194,7 @@ def validate(model, dataloader, loss_fn, device, epoch):
     all_probs = np.concatenate(all_probs, axis=0)
     
     n_classes = all_probs.shape[1]
+
     all_labels = np.array(all_labels).astype(int)
     all_preds = np.array(all_preds).astype(int)
     precision = precision_score(all_labels, all_preds, average='macro', zero_division=0)
@@ -221,7 +234,10 @@ def validate(model, dataloader, loss_fn, device, epoch):
         'MCC': mcc,
         'Epoch': epoch
     }
-    return metrics
+    auroc = {'Probs' : all_probs[:, 1],
+        'Labels' : all_labels} 
+    print(metrics)
+    return metrics, auroc
 
 
 def train_one_epoch_reg(model, dataloader, optimizer, loss_fn, device):
@@ -292,125 +308,10 @@ def validate_reg(model, dataloader, loss_fn, device):
     return metrics
 
 
-def get_args_parser():
 
-    parser = argparse.ArgumentParser(
-        "EfficientNetB0 for Image Classification", add_help=False
-    )
-
-    parser.add_argument(
-        "--patient_dataset_type",
-        default="slice",
-        type=str,
-        choices=["slice", "center_slice", "volume"],
-        help="patient dataset type",
-    )
-    parser.add_argument(
-        "--imaging",
-        default="oct",
-        type=str,
-        choices=["oct", "cfp", "ir", "octa"],
-        help="imaging type",
-    )
-    parser.add_argument(
-        "--manufacturers_model_name",
-        default="Spectralis",
-        type=str,
-        choices=["Spectralis", "Maestro2", "Triton", "Cirrus", "Eidon", "All"],
-        help="device type",
-    )
-    parser.add_argument(
-        "--anatomic_region",
-        default="Macula",
-        type=str,
-        help="anatomic region to process",
-    )
-    parser.add_argument(
-        "--octa_enface_imaging",
-        default=None,
-        type=str,
-        choices=["superficial", "deep", "outer_retina", "choriocapillaris", None],
-        help="OCTA enface slab type",
-    )
-
-    parser.add_argument(
-        "--concept_id", default=-1, type=int, help="anatomic region to process"
-    )
-
-
-    parser.add_argument(
-        "--cache_rate",
-        default=0.,
-        type=float,
-        help="Proportion of dataset to cache between epochs",
-    )
-
-    # Training parameters
-    parser.add_argument("--batch_size", default=64, type=int, help="Batch size per GPU")
-    parser.add_argument(
-        "--val_batch_size", default=16, type=int, help="Validation batch size"
-    )
-    parser.add_argument(
-        "--epochs", default=50, type=int, help="Number of training epochs"
-    )
-
-    # Model parameters
-    parser.add_argument("--input_size", default=224, type=int, help="Input image size")
-
-    parser.add_argument(
-        "--nb_classes",
-        default=2,
-        type=int,
-        help="Number of classification categories",
-    )
-
-    # Optimizer & Learning Rate
-    parser.add_argument("--lr", type=float, default=1e-3, help="Learning rate")
-
-    # Dataset parameters
-    parser.add_argument(
-        "--data_path", default="/path/to/data/", type=str, help="Dataset path"
-    )
-
-    # Device and computation settings
-    parser.add_argument(
-        "--device", default="cuda", help="Device to use for training/testing"
-    )
-    parser.add_argument(
-        "--seed", default=0, type=int, help="Random seed for reproducibility"
-    )
-    parser.add_argument(
-        "--num_workers", default=10, type=int, help="Number of data loading workers"
-    )
-
-    # Checkpointing & Logging
-    parser.add_argument(
-        "--output_dir", default="./output", help="Path to save model checkpoints"
-    )
-    parser.add_argument("--log_dir", default="./logs", help="Path for logging")
-
-    # Evaluation mode
-    parser.add_argument("--eval", action="store_true", help="Run evaluation only")
-
-    #label
-    parser.add_argument(
-        "--label", default="mhoccur_ca, Cancer (any type)", help="label to predict"
-    )
-
-    parser.add_argument(
-        "--dataset_config_path", default="/path/to/data/", type=str, help="Dataset path"
-    )
-
-    parser.add_argument(
-        "--img_dir", default="/path/to/data/", type=str, help="Dataset path"
-    )
-
-    parser.add_argument( "--img_type", default="cfp",type=str, help = "image modality")
-    args = parser.parse_args()
-
-    return parser
 
 def write_logging_results(file_path, metrics):
+    
     if os.path.exists(file_path):
         df1 = pd.read_csv(file_path, index_col=0) 
         df2 = pd.DataFrame(metrics, index = [metrics["Epoch"]]) 
@@ -432,7 +333,7 @@ def train(
     epochs,
     save_path,
 ):
-    best_val_loss = float("inf")
+    best_val_auc = 0
     writer = SummaryWriter(args.log_dir)
     
     
@@ -440,15 +341,15 @@ def train(
     train_file_path = save_path+"//train_result.csv"
     val_file_path = save_path+"//val_result.csv"
     test_file_path = save_path+"//test_result.csv"
-
+    waiting_ctr = 0
     for epoch in range(epochs):
-  
+        waiting_ctr+=1
         train_loss, train_acc = train_one_epoch(
             model, train_loader, optimizer, loss_fn, device)
         train_metrics = {"Epoch": epoch +1, "Train Loss": train_loss, "Train Acc": train_acc}
-        val_metrics = validate(model, val_loader, loss_fn, device, epoch+1)
-        
-        test_metrics = validate(model, test_loader, loss_fn, device, epoch+1)
+        val_metrics, predictions = validate(model, val_loader, loss_fn, device, epoch+1)
+        test_metrics, predictions = validate(model, test_loader, loss_fn, device, epoch+1)
+
         write_logging_results(train_file_path, train_metrics)
         write_logging_results(val_file_path, val_metrics)
         write_logging_results(test_file_path, test_metrics)
@@ -481,14 +382,24 @@ def train(
                 print(f"{key}: {value:.4f}")
             else:
                 print(f"{key}: N/A") # multiclass doesn't calculate specificity
-
-        if val_metrics["Loss"] < best_val_loss:
-            best_val_loss = val_metrics["Loss"]
+       
+        if val_metrics["AUC-ROC"] > best_val_auc:
+            probs = predictions['Probs']
+            labels = predictions['Labels'] 
+            dct_auroc = {'Probs': probs, 'Labels': labels}
+            df = pd.DataFrame(dct_auroc)
+            df.to_csv(save_path + "//Predictions.csv")
+            best_val_auc = val_metrics["AUC-ROC"]
             if torch.cuda.device_count() > 1:
-                torch.save(model.module.state_dict(), save_path+"//best_model.pth")  # for DataParallel
+                torch.save(model.module.state_dict(), save_path+"//best_model_" + str(epoch+1)+".pth")  # for DataParallel
             else:
-                torch.save(model.state_dict(), save_path + "//best_model.pth")
-            print("Model saved with improved validation loss.")
+                torch.save(model.state_dict(), save_path+"//best_model_" + str(epoch+1)+".pth")
+            waiting_ctr = 0
+            print("Model saved with improved validation auc.") 
+        else:
+            if(waiting_ctr>=2):
+                print("No improvement - STOPPING!!")
+                exit(0)
 
 
 # Training loop with model saving (Regression)
@@ -560,41 +471,54 @@ def main(args):
 
     # Load the datasets
     df = pd.read_csv(args.dataset_config_path)
-    imgpath = args.img_dir
-    if args.img_type == "ir":
-        transform_train = transforms.Compose([
+    
+    
+    ir_train_transforms = transforms.Compose([
         transforms.Grayscale(num_output_channels=3),
-        transforms.RandomRotation(degrees=15),  
-        transforms.RandomCrop(size=224), # Convert to 3-channel RGB
-        transforms.ToTensor()   
+        transforms.Resize((256, 256)),                   # upscale to 256×256
+        transforms.RandomCrop((224, 224)),               # random 224×224 patch
+        transforms.RandomHorizontalFlip(),                  # randomly flip horizontally
+        transforms.RandomRotation(degrees=30),         # new rotation augmentation
+        transforms.ToTensor() ,
+        transforms.Normalize(mean=[0.485, 0.456, 0.406],  # ImageNet stats
+                std=[0.229, 0.224, 0.225])  
                             # Convert to tensor [0,1]
-    ])  
-        transform_test= transforms.Compose([
+    ]) 
+
+    ir_test_transforms = transforms.Compose([
         transforms.Grayscale(num_output_channels=3),
-        transforms.CenterCrop(size=224),       # Adjust size as needed
-        transforms.ToTensor()
-    ])
-
-    if args.img_type == "cfp":
-        transform_train = transforms.Compose([
-        transforms.RandomRotation(degrees=15),  
-        transforms.RandomCrop(size=224), # Convert to 3-channel RGB
-        transforms.ToTensor()   
+        transforms.Resize((224, 224)),                   # fixed 224×224
+        transforms.ToTensor() ,
+        transforms.Normalize(mean=[0.485, 0.456, 0.406],  # ImageNet stats
+                std=[0.229, 0.224, 0.225])  
                             # Convert to tensor [0,1]
-    ])  
-        transform_test= transforms.Compose([
-        transforms.CenterCrop(size=224),       # Adjust size as needed
-        transforms.ToTensor()
-    ])
+    ]) 
 
 
-    dataset_train = AIReadiDataset(df = df, img_path = imgpath, img_type = args.img_type, split="train", transform = transform_train, label=args.label)
-    dataset_val = AIReadiDataset(df = df, img_path = imgpath, img_type = args.img_type, split="val", transform = transform_test, label=args.label)
-    dataset_test = AIReadiDataset(df = df, img_path = imgpath, img_type = args.img_type, split="test", transform = transform_test, label=args.label)
-#    dataset_train = build_dataset(split="train", args=args)
-   # dataset_val = build_dataset(split="val", args=args)
-  #  dataset_test = build_dataset(split="test", args=args)
-    print(len(dataset_train),len(dataset_val), len(dataset_test))
+    cfp_train_transforms = transforms.Compose([
+        transforms.Resize((256, 256)),                   
+        transforms.RandomCrop((224, 224)),               
+        transforms.RandomRotation(degrees=30),   
+        transforms.RandomHorizontalFlip(),# new rotation augmentation
+        transforms.ToTensor() ,
+        transforms.Normalize(mean=[0.485, 0.456, 0.406],  # ImageNet stats
+                std=[0.229, 0.224, 0.225])  
+                            # Convert to tensor [0,1]
+    ]) 
+
+    cfp_test_transforms = transforms.Compose([
+        transforms.Resize((224, 224)),                   # fixed 224×224
+        transforms.ToTensor() ,
+        transforms.Normalize(mean=[0.485, 0.456, 0.406],  # ImageNet stats
+                std=[0.229, 0.224, 0.225])  
+                            # Convert to tensor [0,1]
+    ]) 
+    
+    dataset_train = AIReadiDataset(df=df, img_type = args.img_type, img_path_cfp = args.cfp_img_path, img_path_ir=args.ir_img_path,split="train", cfp_transform=cfp_train_transforms, ir_transform = ir_train_transforms, label=args.label, clinical_data=args.clinical_data)
+    dataset_val = AIReadiDataset(df=df, img_type = args.img_type, img_path_cfp = args.cfp_img_path, img_path_ir=args.ir_img_path,split="val", cfp_transform=cfp_test_transforms, ir_transform = ir_test_transforms, label=args.label, clinical_data=args.clinical_data)
+    dataset_test = AIReadiDataset(df=df, img_type = args.img_type, img_path_cfp = args.cfp_img_path, img_path_ir=args.ir_img_path,split="test", cfp_transform=cfp_test_transforms, ir_transform = ir_test_transforms, label=args.label, clinical_data=args.clinical_data)
+   
+   
     is_iterable_dataset = isinstance(dataset_train, IterableDataset)
     dataloader_shuffle = False if is_iterable_dataset else True
 
@@ -617,14 +541,13 @@ def main(args):
         num_workers=args.num_workers,
         shuffle=False,
     )
-    # Initialize EfficientNet-B0 model
-    model = DinoTransformer().to(device)
+
+    model = TransformerFusion(len(args.clinical_data), args.num_layers, args.dropout)
     if torch.cuda.device_count() > 1:
         print(f"Using {torch.cuda.device_count()} GPUs!")
         model = nn.DataParallel(model)
     model.to(device)
-
-    optimizer = optim.AdamW(model.parameters(), lr=args.lr) #, weight_decay=1e-4)
+    optimizer = optim.Adam(model.parameters(), lr=args.lr) #, weight_decay=1e-4)
 
 
     # Replace with actual dataloaders
@@ -634,7 +557,7 @@ def main(args):
     save_path = args.output_dir
 
     if args.nb_classes > 1:
-        criterion = FocalLoss(gamma=2.0)
+        criterion =nn.CrossEntropyLoss() 
         train(
             model,
             train_loader,
@@ -646,7 +569,7 @@ def main(args):
             epochs=args.epochs,
             save_path=save_path,
         )
-    else: # regression
+    else: 
         criterion = nn.HuberLoss(delta=1.0)
         train_reg(
             model,
@@ -669,8 +592,13 @@ def main(args):
 if __name__ == "__main__":
     args = get_args_parser()
     args = args.parse_args()
-
-    if args.output_dir:
-        Path(args.output_dir).mkdir(parents=True, exist_ok=True)
-
+    # Save args to a JSON file
+    date_string = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+    output_dir = os.path.join(args.output_dir, '{}_{}'.format(args.experiment_name, date_string))
+    print(output_dir)
+    os.makedirs(output_dir, exist_ok=True)
+    with open(os.path.join(output_dir, 'args.json'), 'w') as fh:
+        json.dump(vars(args), fh, indent=4, sort_keys=True)
+        fh.write('\n')
+    args.output_dir = output_dir
     main(args)
